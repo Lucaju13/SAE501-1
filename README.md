@@ -15,22 +15,22 @@ Pour chacun de ces éléments, il sera nécessaire de fournir une documentation 
 
 La répartition des rôles au sein de l'équipe est la suivante :
 
-- Étudiant 1 :
+- Étudiant 1 : Mr Ruben
   - Développement de la capture réseau.
   - Analyse des trames.
   - Mise en place du déploiement.
 
-- Étudiant 2 :
+- Étudiant 2 : Mr Guilhem
   - Mise en place de l'API REST.
   - Installation de la base de données.
   - Réalisation des tests unitaires.
 
-- Étudiant 3 :
+- Étudiant 3 : Mr Lucas
   - Conception de l'interface graphique.
   - Intégration de l'interface avec la base de données en Python.
   - Détection des alertes.
 
-- Étudiant 4 :
+- Étudiant 4 : Mme Toure
   - Modularisation de l'application sous forme de plugins.
   - Développement d'un plugin pour l'analyse DNS.
 
