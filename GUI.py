@@ -12,13 +12,9 @@ def sauvegarder():
 root = tk.Tk()
 root.title("Interface")
 
-# Box d'affichage des erreurs
-erreurs = tk.Label(root, text="Affichage des erreurs")
-erreurs.pack()
-box_affichage_erreurs = tk.Text(root, height=10, width=50)
-box_affichage_erreurs.pack()
-
 # Box pour prendre l’adresse API REST
+api = tk.Label(root, text= "API REST URL")
+api.pack()
 box_adresse_api = tk.Entry(root, width=50)
 box_adresse_api.pack()
 
@@ -27,6 +23,12 @@ test_unitaires = tk.Label(root, text="Résultat tests unitaires")
 test_unitaires.pack()
 box_affichage_tests = tk.Text(root, height=10, width=50)
 box_affichage_tests.pack()
+
+# Box d'affichage des erreurs
+erreurs = tk.Label(root, text="Affichage des erreurs")
+erreurs.pack()
+box_affichage_erreurs = tk.Text(root, height=10, width=50)
+box_affichage_erreurs.pack()
 
 # Boutons
 btn_lancer_requete = tk.Button(root, text="Lancer la requête", command=lancer_requete)
@@ -62,6 +64,8 @@ alertes_button = tk.Button(root, text="Chercher anomalies DHCP")  # Ajoutez la f
 alertes_button.pack()
 
 # Box d'affichage des données stockées dans la base de données
+bdaf = tk.Label(root, text="Base de Données")
+bdaf.pack()
 box_affichage_db = tk.Text(root, height=10, width=50)
 box_affichage_db.pack()
 
