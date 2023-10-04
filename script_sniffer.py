@@ -1,5 +1,8 @@
 import scapy.all as scapy
 
+#Liste des noms des types de paquet DHCP
+type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","inform","fore_renew","lease_query","lease_unassigned","lease_unknown","lease_active"]
+
 def packet_handler(packet):
     if packet.haslayer(scapy.IP):
         src_ip = packet[scapy.IP].src
@@ -13,19 +16,14 @@ def packet_handler(packet):
                print("Réussite")
            else:
                print("Échec")
-        elif packet.haslayer(scapy.DHCP): #Remarque si il a une trame DHCP
+        elif packet.haslayer(scapy.DHCP):
             dhcp_message_type = packet[scapy.DHCP].options[0][1]
-            if dhcp_message_type == 2:
-                dhcp_type = "DHCP Offer"
-            elif dhcp_message_type == 5:
-                dhcp_type = "DHCP ACK"
-            else:
-                dhcp_type = f"DHCP Type {dhcp_message_type}"
+            dhcp_type = type_dhcp[dhcp_message_type] #Récupère le nom du paquet dhcp selon le type
             print(dhcp_type)
 
 def main(interface):
     scapy.sniff(iface=interface, prn=packet_handler)
 
 if __name__ == "__main__":
-    interface = "enp0s31f6" 
+    interface = "enp0s31f6"  # Remplacez par le nom de votre interface réseau
     main(interface)
