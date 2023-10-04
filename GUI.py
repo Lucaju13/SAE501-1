@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk 
 
 def lancer_requete():
     # Ajoutez ici le code pour lancer la requête
@@ -56,6 +57,21 @@ bdaf = tk.Label(root, text="Base de Données")
 bdaf.place(x = 0, y= 330)
 box_affichage_db = tk.Text(root, height=10, width=50)
 box_affichage_db.place(x=0, y= 350)
+
+# Ajout des combobox
+filtre_label = ttk.Label(root, text="Filtres :")
+filtre_label.place(x=500, y=330)
+
+# Création de la combobox pour le filtre 1
+filtre_1_var = tk.StringVar()
+filtre_1_combobox = ttk.Combobox(root, textvariable=filtre_1_var, values=["Date", "Type de requete", "Type d'erreur"])
+filtre_1_combobox.place(x=500, y=350)
+
+# Création de la combobox pour le filtre 2
+filtre_2_var = tk.StringVar()
+filtre_2_combobox = ttk.Combobox(root, textvariable=filtre_2_var, values=["Date", "Type de requete", "Type d'erreur"])
+filtre_2_combobox.place(x=600, y=350)
+
 
 # Lancement de l'interface
 root.mainloop()
