@@ -13,6 +13,15 @@ def packet_handler(packet):
                print("Réussite")
            else:
                print("Échec")
+        elif packet.haslayer(scapy.DHCP): #Remarque si il a une trame DHCP
+            dhcp_message_type = packet[scapy.DHCP].options[0][1]
+            if dhcp_message_type == 2:
+                dhcp_type = "DHCP Offer"
+            elif dhcp_message_type == 5:
+                dhcp_type = "DHCP ACK"
+            else:
+                dhcp_type = f"DHCP Type {dhcp_message_type}"
+            print(dhcp_type)
 
 def main(interface):
     scapy.sniff(iface=interface, prn=packet_handler)
