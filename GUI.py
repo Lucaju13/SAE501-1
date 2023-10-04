@@ -8,9 +8,10 @@ def sauvegarder():
     # Ajoutez ici le code pour sauvegarder dans la base de données
     pass
 
+
 # Création de la fenêtre principale
 root = tk.Tk()
-root.title("Interface")
+root.title("Projet Logiciel")
 
 # Box pour prendre l’adresse API REST
 api = tk.Label(root, text= "API REST URL")
@@ -25,7 +26,7 @@ box_affichage_tests = tk.Text(root, height=10, width=50)
 box_affichage_tests.pack()
 
 # Box d'affichage des erreurs
-erreurs = tk.Label(root, text="Affichage des erreurs")
+erreurs = tk.Label(root, text="Detenction d'alertes")
 erreurs.pack()
 box_affichage_erreurs = tk.Text(root, height=10, width=50)
 box_affichage_erreurs.pack()
@@ -34,11 +35,12 @@ box_affichage_erreurs.pack()
 btn_lancer_requete = tk.Button(root, text="Lancer la requête", command=lancer_requete)
 btn_lancer_requete.pack()
 
+btn_stop = tk.Button(root, text="Stop", command=root.quit)  # Ajoutez la fonction associée
+btn_stop.pack()
+
 btn_sortir = tk.Button(root, text="Sortir du programme", command=root.quit)
 btn_sortir.pack()
 
-btn_stop = tk.Button(root, text="Stop", command=root.quit)  # Ajoutez la fonction associée
-btn_stop.pack()
 
 btn_sauvegarder = tk.Button(root, text="Sauvegarder", command=sauvegarder)
 btn_sauvegarder.pack()
@@ -55,13 +57,6 @@ filtre_type_requete.pack()
 
 filtre_type_erreur = tk.Entry(root)
 filtre_type_erreur.pack()
-
-# Détection des alertes
-alertes_label = tk.Label(root, text="Détection des alertes")
-alertes_label.pack()
-
-alertes_button = tk.Button(root, text="Chercher anomalies DHCP")  # Ajoutez la fonction associée
-alertes_button.pack()
 
 # Box d'affichage des données stockées dans la base de données
 bdaf = tk.Label(root, text="Base de Données")
