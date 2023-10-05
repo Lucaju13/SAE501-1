@@ -1,20 +1,19 @@
 import scapy.all as scapy
 
-# Liste des noms des types de paquet DHCP
 type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","inform","fore_renew","lease_query","lease_unassigned","lease_unknown","lease_active"]
 
 def packet_handler(packet):
     if packet.haslayer(scapy.IP):
         src_ip = packet[scapy.IP].src
         dst_ip = packet[scapy.IP].dst
+        src_mac = packet[scapy.Ether].src # Récupère désormais les adresses macs
+        dst_mac = packet[scapy.Ether].dst
         packet_id = packet[scapy.IP].id
         timestamp = packet.time
-        # Suppression du test ICMP pour ne garder que la trame DHCP
         if packet.haslayer(scapy.DHCP):
             dhcp_message_type = packet[scapy.DHCP].options[0][1]
             dhcp_type = type_dhcp[dhcp_message_type]
-            print(f"Timestamp: {timestamp}, Source IP: {src_ip} -> Destination IP: {dst_ip}, Packet ID: {packet_id}, Trame DHCP: {dhcp_type}")
-            # Affiche désormais toutes les informations lorsque la trame est un DHCP + affiche en même temps le type DHCP
+            print(f"Timestamp: {timestamp}, Source IP: {src_ip} -> Destination IP: {dst_ip}, Packet ID: {packet_id}, Trame DHCP: {dhcp_type}, Source Mac: {src_mac} -> Destination Mac: {dst_mac}")
             
 			# Il faut envoyer ensuite ces informations sur la base de données.
 
