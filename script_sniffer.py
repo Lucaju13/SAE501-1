@@ -12,19 +12,22 @@ type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","in
 
 def packet_handler(packet):
     if packet.haslayer(scapy.IP):
-        src_ip = packet[scapy.IP].src
-        dst_ip = packet[scapy.IP].dst
-        src_mac = packet[scapy.Ether].src 
-        dst_mac = packet[scapy.Ether].dst
-        packet_id = packet[scapy.IP].id
+        Src_IP = packet[scapy.IP].src
+        Dst_IP = packet[scapy.IP].dst
+        Src_MAC = packet[scapy.Ether].src 
+        Dst_MAC = packet[scapy.Ether].dst
+        Packet_ID = packet[scapy.IP].id
         timestamp = packet.time
         if packet.haslayer(scapy.DHCP):
             dhcp_message_type = packet[scapy.DHCP].options[0][1]
             dhcp_type = type_dhcp[dhcp_message_type]
             date = datetime.fromtimestamp(timestamp, tz = None) 
-            print(f"Timestamp: {timestamp}, Date: {date}, Source IP: {src_ip} -> Destination IP: {dst_ip}, Packet ID: {packet_id}, Trame DHCP: {dhcp_type}, Source Mac: {src_mac} -> Destination Mac: {dst_mac}")
+            print(f"Timestamp: {timestamp}, Date: {date}, Source IP: {Src_IP} -> Destination IP: {Src_IP}, Packet ID: {Packet_ID}, Trame DHCP: {dhcp_type}, Source Mac: {Src_MAC} -> Destination Mac: {Dst_MAC}")
             
-			# Il faut envoyer ensuite ces informations sur la base de données.
+			sqlite_insert_query = """INSERT INTO data
+                          (Src_IP, Dst_IP, Src_MAC, Dst_MAC, Packet_ID, Time, Heure, Type_Trame) 
+                           VALUES 
+                          (,,,,)"""
 
 def main(interface):
     scapy.sniff(iface=interface, prn=packet_handler)
