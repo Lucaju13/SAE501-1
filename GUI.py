@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk 
-
+import sqlite3
 def lancer_requete():
     # Ajoutez ici le code pour lancer la requête
     pass
@@ -15,7 +15,7 @@ root = tk.Tk()
 root.title("Projet Logiciel")
 
 largeur = 950
-hauteur = 550
+hauteur = 630
 resolution = f"{largeur}x{hauteur}"
 root.geometry(resolution)
 
@@ -52,12 +52,6 @@ btn_sauvegarder = tk.Button(root, text="Sauvegarder", command=sauvegarder)
 btn_sauvegarder.place(x=300, y=250) 
 
 
-# Box d'affichage des données stockées dans la base de données
-bdaf = tk.Label(root, text="Base de Données")
-bdaf.place(x = 0, y= 330)
-box_affichage_db = tk.Text(root, height=10, width=50)
-box_affichage_db.place(x=0, y= 350)
-
 # Ajout des combobox
 filtre_label = ttk.Label(root, text="Filtres :")
 filtre_label.place(x=500, y=330)
@@ -71,6 +65,24 @@ filtre_1_combobox.place(x=500, y=350)
 filtre_2_var = tk.StringVar()
 filtre_2_combobox = ttk.Combobox(root, textvariable=filtre_2_var, values=["Date", "Type de requete", "Type d'erreur"])
 filtre_2_combobox.place(x=600, y=350)
+
+def afficher_donnees():
+  ...
+
+# Création du tableau
+columns = ('ID', 'PACKET ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST','TYPE TRAME','TIMESTAMP', 'HEURE')
+tree = ttk.Treeview(root, columns=columns, show='headings')
+
+# Configurer les en-têtes de colonnes
+for col in columns:
+    tree.heading(col, text=col)
+    tree.column(col, width=100)
+tree.place(x=20, y=380)  # Positionnez la table à l'emplacement souhaité
+
+# Bouton pour afficher les données dans la table
+btn_afficher_donnees = tk.Button(root, text="Afficher les données", command=afficher_donnees)
+btn_afficher_donnees.place(x=20, y=340)
+
 
 
 # Lancement de l'interface
