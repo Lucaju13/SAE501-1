@@ -2,10 +2,8 @@ import scapy.all as scapy
 from datetime import datetime
 import sqlite3
 ######### Joindre à SQL #########
-con = sqlite3.connect("sae501.db") #Se connecter au fichier de la bdd sqlite3
+con = sqlite3.connect("sae501.db")
 cursor = con.cursor()
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table';") # Permet d'afficher les tables pour vérifier la connectivité d'abord
-print(cursor.fetchall())
 ######### Joindre à SQL #########
 
 type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","inform","fore_renew","lease_query","lease_unassigned","lease_unknown","lease_active"]
@@ -22,12 +20,15 @@ def packet_handler(packet):
             dhcp_message_type = packet[scapy.DHCP].options[0][1]
             dhcp_type = type_dhcp[dhcp_message_type]
             date = datetime.fromtimestamp(timestamp, tz = None) 
-            print(f"Timestamp: {timestamp}, Date: {date}, Source IP: {Src_IP} -> Destination IP: {Src_IP}, Packet ID: {Packet_ID}, Trame DHCP: {dhcp_type}, Source Mac: {Src_MAC} -> Destination Mac: {Dst_MAC}")
-            
-			sqlite_insert_query = """INSERT INTO data
+            print(f"Timestamp: {timestamp}, Date: {date}, Source IP: {Src_IP} -> Destination IP: {Src_IP}, Packet ID: {Packet_ID}, Trame DHCP: {dhcp_type}, Source Mac: {Src_MAC} -> Destination Mac: {Dst_MAC}") 
+            sqlite_insert_query = """INSERT INTO data
                           (Src_IP, Dst_IP, Src_MAC, Dst_MAC, Packet_ID, Time, Heure, Type_Trame) 
                            VALUES 
-                          (,,,,)"""
+                          (?,?,?,?,?,?,?,?)"""
+                          # On choisit les tables dans les quelles mettre les données. On met des points d'interrogation pour dire 
+            data_tuple = (Src_IP, Dst_IP, Src_MAC, Dst_MAC, Packet_ID, timestamp, date, dhcp_type) # Les données à envoyer
+            cursor.execute(sqlite_insert_query, data_tuple) # On exécute l'insertion avec la tuple des données à envoyer.
+            con.commit()
 
 def main(interface):
     scapy.sniff(iface=interface, prn=packet_handler)
