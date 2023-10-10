@@ -6,9 +6,10 @@ con = sqlite3.connect("sae501.db")
 cursor = con.cursor()
 ######### Joindre à SQL #########
 
-type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","inform","fore_renew","lease_query","lease_unassigned","lease_unknown","lease_active"]
-
+type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","inform","force_renew","lease_query","lease_unassigned","lease_unknown","lease_active"]
+i = 0 # compteur
 def packet_handler(packet):
+    global i
     if packet.haslayer(scapy.IP):
         Src_IP = packet[scapy.IP].src
         Dst_IP = packet[scapy.IP].dst
@@ -17,6 +18,7 @@ def packet_handler(packet):
         Packet_ID = packet[scapy.IP].id
         timestamp = packet.time
         if packet.haslayer(scapy.DHCP):
+            i += 1
             dhcp_message_type = packet[scapy.DHCP].options[0][1]
             dhcp_type = type_dhcp[dhcp_message_type]
             date = datetime.fromtimestamp(timestamp, tz = None) 
@@ -25,10 +27,12 @@ def packet_handler(packet):
                           (Src_IP, Dst_IP, Src_MAC, Dst_MAC, Packet_ID, Time, Heure, Type_Trame) 
                            VALUES 
                           (?,?,?,?,?,?,?,?)"""
-                          # On choisit les tables dans les quelles mettre les données. On met des points d'interrogation pour dire 
-            data_tuple = (Src_IP, Dst_IP, Src_MAC, Dst_MAC, Packet_ID, timestamp, date, dhcp_type) # Les données à envoyer
-            cursor.execute(sqlite_insert_query, data_tuple) # On exécute l'insertion avec la tuple des données à envoyer.
+
+            data_tuple = (Src_IP, Dst_IP, Src_MAC, Dst_MAC, Packet_ID, timestamp, date, dhcp_type)
+            cursor.execute(sqlite_insert_query, data_tuple)
             con.commit()
+            if i > 9: # Le script s'arrête après avoir analysé 10 paquets
+                quit()
 
 def main(interface):
     scapy.sniff(iface=interface, prn=packet_handler)
