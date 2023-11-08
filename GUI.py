@@ -6,7 +6,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Projet Logiciel")
-        self.geometry("950x630")
+        self.geometry("1500x630")
 
         self.create_widgets()
         self.setup_database()
