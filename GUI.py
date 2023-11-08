@@ -57,7 +57,7 @@ class App(tk.Tk):
 
         for col in columns:
             self.tree.heading(col, text=col)
-            self.tree.column(col, width=100)
+            self.tree.column(col, width=163)
         self.tree.place(x=20, y=380) 
 
         # Bouton pour afficher les données dans la table
