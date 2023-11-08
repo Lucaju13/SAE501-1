@@ -27,7 +27,7 @@ class App(tk.Tk):
         # Box d'affichage des erreurs
         erreurs = tk.Label(self, text="Detection d'alertes")
         erreurs.place(x=650, y=45)
-        self.box_affichage_erreurs = tk.Text(self, height=10, width=50)
+        self.box_affichage_erreurs = tk.Text(self, height=10, width=123)
         self.box_affichage_erreurs.place(x=500, y=65)
 
         # Ajout des combobox
@@ -49,7 +49,7 @@ class App(tk.Tk):
         btn_lancer_requete.place(x=20, y=250)
 
         btn_sortir = tk.Button(self, text="Sortir du programme", command=self.quit)
-        btn_sortir.place(x=750, y=250) 
+        btn_sortir.place(x=1200, y=250) 
 
         # Création du tableau
         columns = ('ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST', 'PACKET ID','TIMESTAMP','DATE', 'TYPE')
@@ -66,7 +66,7 @@ class App(tk.Tk):
 
         # Bouton pour détecter les alertes
         btn_detecter_alertes = tk.Button(self, text="Lancer la détection d'alertes", command=self.detecter_alertes)
-        btn_detecter_alertes.place(x=300, y=250)
+        btn_detecter_alertes.place(x=600, y=250)
 
     def setup_database(self):
         self.conn = sqlite3.connect('sae501.db')
