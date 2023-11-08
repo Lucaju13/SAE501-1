@@ -6,6 +6,7 @@ con = sqlite3.connect("sae501.db")
 cursor = con.cursor()
 ######### Joindre à SQL #########
 type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","inform","force_renew","lease_query","lease_unassigned","lease_unknown","lease_active"]
+
 def packet_handler(packet):
     if packet.haslayer(scapy.IP):
         Src_IP = packet[scapy.IP].src
@@ -14,8 +15,8 @@ def packet_handler(packet):
         Dst_MAC = packet[scapy.Ether].dst
         Packet_ID = packet[scapy.IP].id
         timestamp = packet.time
-        if packet.haslayer(scapy.DHCP) and Src_IP != "255.255.255.255" and Dst_IP != "255.255.255.255":
-	    # Modification du "if" pour ne pas avoir de trames broadcast dans la base de données, rendant l'analyse de la BDD plus fluide.
+        if packet[scapy.DHCP].options[0][1] != 1:
+		# On accepte de nouveau les trames broadcast mais on retire les trames Discover.
             dhcp_message_type = packet[scapy.DHCP].options[0][1]
             dhcp_type = type_dhcp[dhcp_message_type]
             date = datetime.fromtimestamp(timestamp, tz = None) 
