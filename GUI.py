@@ -92,7 +92,7 @@ class App(tk.Tk):
 
         for trame in trames:
             ip_dst = trame[2]
-            if not (ip_dst.startswith('10.202.') or ip_dst.startswith('10.203.')):
+            if not (ip_dst.startswith('10.202.') or ip_dst.startswith('10.203.') or ip_dst.startswith('255.255.255.255')):
                 message = f"Alerte détectée: Adresse IP hors du sous-réseau autorisé. Trame: {trame}"
                 self.box_affichage_erreurs.insert(tk.END, message + "\n")
                 self.box_affichage_erreurs.tag_configure("rouge", foreground="red")
