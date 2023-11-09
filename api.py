@@ -54,5 +54,16 @@ def obtenir_ip_source():
     conn.close()
     ip_source_list = [ip[0] for ip in ip_source]
     return jsonify(ip_source_list)
+    
+@app.route('/api/capture_time', methods=['GET'])
+def obtenir_capture_time():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT Heure FROM data")
+    ip_destinataire = cursor.fetchall()
+    conn.close()
+    ip_destinataire_list = [ip[0] for ip in ip_destinataire]
+    return jsonify(ip_destinataire_list)
+    
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True)
