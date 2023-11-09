@@ -33,46 +33,26 @@ def obtenir_element(element_id):
     else:
         return jsonify({'message': 'Element non trouve'}), 404
 
-# Route pour créer un nouvel élément
-@app.route('/api/elements', methods=['POST'])
-def creer_element():
-    nouvel_element = request.get_json()
-    if nouvel_element:
-        conn = connect_db()
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO data (mac, ip) VALUES (?, ?)",
-                       (nouvel_element.get('@ mac'), nouvel_element.get('@ ip')))
-        conn.commit()
-        nouvel_id = cursor.lastrowid
-        conn.close()
-        return jsonify({'message': 'Element cree avec succes', 'id': nouvel_id}), 201
-    else:
-        return jsonify({'message': 'Donnees invalides'}), 400
-
-# Route pour mettre à jour un élément par son ID
-@app.route('/api/elements/<int:element_id>', methods=['PUT'])
-def mettre_a_jour_element(element_id):
-    element_existant = request.get_json()
-    if element_existant:
-        conn = connect_db()
-        cursor = conn.cursor()
-        cursor.execute("UPDATE data SET mac=?, ip=? WHERE id=?",
-                       (element_existant.get('@ mac'), element_existant.get('@ ip'), element_id))
-        conn.commit()
-        conn.close()
-        return jsonify({'message': 'Element mis a jour avec succes'}), 200
-    else:
-        return jsonify({'message': 'Donnees invalides'}), 400
-
-# Route pour supprimer un élément par son ID
-@app.route('/api/elements/<int:element_id>', methods=['DELETE'])
-def supprimer_element(element_id):
+# Route pour obtenir toutes les adresses IP destinataires
+@app.route('/api/dst_ip', methods=['GET'])
+def obtenir_ip_destinataire():
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM data WHERE id=?", (element_id,))
-    conn.commit()
+    cursor.execute("SELECT Dst_ip FROM data")
+    ip_destinataire = cursor.fetchall()
     conn.close()
-    return jsonify({'message': 'Element supprime avec succes'}), 200
+    ip_destinataire_list = [ip[0] for ip in ip_destinataire]
+    return jsonify(ip_destinataire_list)
 
+# Route pour obtenir toutes les adresses IP source
+@app.route('/api/src_ip', methods=['GET'])
+def obtenir_ip_source():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT Src_ip FROM data")
+    ip_source = cursor.fetchall()
+    conn.close()
+    ip_source_list = [ip[0] for ip in ip_source]
+    return jsonify(ip_source_list)
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True)
