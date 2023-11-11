@@ -106,10 +106,17 @@ class App(tk.Tk):
         self.box_affichage_tests.config(state="normal")
         self.box_affichage_tests.delete(1.0, tk.END)
 
+        total_requetes = 0  # Nouvelle variable pour stocker le nombre total de requêtes
+
         for stat in statistiques:
             self.box_affichage_tests.insert(tk.END, f"{stat[0]}: {stat[1]} requêtes\n")
+            total_requetes += stat[1]  # Ajouter le nombre de requêtes de chaque type au total
+
+        # Ajouter une ligne pour afficher le nombre total de requêtes
+        self.box_affichage_tests.insert(tk.END, f"\nNombre total de requêtes: {total_requetes}\n")
 
         self.box_affichage_tests.config(state="disabled")
+
 
 
 if __name__ == "__main__":
