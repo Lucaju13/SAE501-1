@@ -99,6 +99,7 @@ class App(tk.Tk):
                 self.box_affichage_erreurs.insert(tk.END, message + "\n")
                 self.box_affichage_erreurs.tag_configure("rouge", foreground="red")
                 self.box_affichage_erreurs.tag_add("rouge", "1.0", "end",)
+                self.box_affichage_erreurs.config(state="disabled")
     
     def afficher_statistiques(self):
         self.cursor.execute("SELECT Type_Trame, COUNT(*) FROM data GROUP BY Type_Trame")
