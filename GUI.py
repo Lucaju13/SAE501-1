@@ -45,11 +45,13 @@ class App(tk.Tk):
         self.filtre_2_combobox.place(x=600, y=350)
 
         # Boutons
-        btn_lancer_requete = tk.Button(self, text="Lancer la requête", command=self.lancer_requete)
-        btn_lancer_requete.place(x=20, y=250)
-
         btn_sortir = tk.Button(self, text="Sortir du programme", command=self.quit)
         btn_sortir.place(x=1200, y=250) 
+
+        # Ajout du bouton pour afficher les statistiques
+        btn_afficher_statistiques = tk.Button(self, text="Afficher les statistiques", command=self.afficher_statistiques)
+        btn_afficher_statistiques.place(x=20, y=250)
+
 
         # Création du tableau
         columns = ('ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST', 'PACKET ID','TIMESTAMP','DATE', 'TYPE')
@@ -96,7 +98,21 @@ class App(tk.Tk):
                 message = f"Alerte détectée: Adresse IP hors du sous-réseau autorisé. Trame: {trame}"
                 self.box_affichage_erreurs.insert(tk.END, message + "\n")
                 self.box_affichage_erreurs.tag_configure("rouge", foreground="red")
-                self.box_affichage_erreurs.tag_add("rouge", "1.0", "end")
+                self.box_affichage_erreurs.tag_add("rouge", "1.0", "end",)
+    
+    def afficher_statistiques(self):
+        self.cursor.execute("SELECT Type_Trame, COUNT(*) FROM data GROUP BY Type_Trame")
+        statistiques = self.cursor.fetchall()
+
+        # Afficher les statistiques dans la boîte de texte des statistiques
+        self.box_affichage_tests.config(state="normal")
+        self.box_affichage_tests.delete(1.0, tk.END)
+
+        for stat in statistiques:
+            self.box_affichage_tests.insert(tk.END, f"{stat[0]}: {stat[1]} requêtes\n")
+
+        self.box_affichage_tests.config(state="disabled")
+
 
 if __name__ == "__main__":
     app = App()
