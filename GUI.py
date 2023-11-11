@@ -69,7 +69,8 @@ class App(tk.Tk):
         # Bouton pour détecter les alertes
         btn_detecter_alertes = tk.Button(self, text="Lancer la détection d'alertes", command=self.detecter_alertes)
         btn_detecter_alertes.place(x=600, y=250)
-
+    
+#------------------------------------Fonctions-------------------------------
     def setup_database(self):
         self.conn = sqlite3.connect('sae501.db')
         self.cursor = self.conn.cursor()
@@ -80,10 +81,6 @@ class App(tk.Tk):
         self.cursor.execute("SELECT * FROM data")
         for row in self.cursor.fetchall():
             self.tree.insert('', 'end', values=row)
-
-    def lancer_requete(self):
-        # Ajoutez ici le code pour lancer la requête
-        pass
 
 
     def detecter_alertes(self):
