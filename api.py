@@ -80,6 +80,35 @@ def obtenir_type_trame():
     
     return jsonify(result)
 
+@app.route('/api/nombre_trame_par_ip', methods=['GET'])
+def obtenir_nombre_trame_par_ip():
+    conn = connect_db()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT Src_ip, COUNT(*) FROM data GROUP BY Src_ip")
+    
+    nombre_trame_par_ip = cursor.fetchall()
+    
+    conn.close()
+    
+    result = [{'ip_source': ip[0], 'nombre': ip[1]} for ip in nombre_trame_par_ip]
+    
+    return jsonify(result)
+    
+@app.route('/api/src_ip/<ip_source>', methods=['GET'])
+def obtenir_info_ip(ip_source):
+    conn = connect_db()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT * FROM data WHERE Src_ip = ?", (ip_source,))
+    
+    ip_info = cursor.fetchall()
+    
+    conn.close()
+    
+    result = [{'type_trame': info[8], 'ip_source': info[1], 'ip_destianaire': info[2]} for info in ip_info]
+    
+    return jsonify(result)
 	
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True)
