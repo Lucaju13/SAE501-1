@@ -64,6 +64,13 @@ def obtenir_capture_time():
     conn.close()
     ip_destinataire_list = [ip[0] for ip in ip_destinataire]
     return jsonify(ip_destinataire_list)
+
+@app.route('/api/type_trame', methods=['GET'])
+def obtenir_type_trame():
+    conn = connect_db()
+    cursor = conn.cursor()
     
+    cursor.execute("SELECT Type_Trame, Src_ip, COUNT(*) FROM data GROUP BY Type_Trame, Src_ip")
+	
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True)
