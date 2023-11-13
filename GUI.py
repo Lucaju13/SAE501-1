@@ -12,11 +12,6 @@ class App(tk.Tk):
         self.setup_database()
 
     def create_widgets(self):
-        # Box pour prendre l’adresse API REST
-        api = tk.Label(self, text= "API REST URL")
-        api.pack()
-        self.box_adresse_api = tk.Entry(self, width=50)
-        self.box_adresse_api.pack()
 
         # Box d'affichage des résultats de Test Unitaires
         test_unitaires = tk.Label(self, text="Résultat tests unitaires")
@@ -26,9 +21,9 @@ class App(tk.Tk):
 
         # Box d'affichage des erreurs
         erreurs = tk.Label(self, text="Detection d'alertes")
-        erreurs.place(x=650, y=45)
+        erreurs.place(x=950, y=1)
         self.box_affichage_erreurs = tk.Text(self, height=10, width=123)
-        self.box_affichage_erreurs.place(x=500, y=65)
+        self.box_affichage_erreurs.place(x=500, y=20)
 
         # Ajout des combobox
         filtre_label = ttk.Label(self, text="Filtres :")
