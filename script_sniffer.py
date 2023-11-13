@@ -15,8 +15,8 @@ def packet_handler(packet):
         Dst_MAC = packet[scapy.Ether].dst
         Packet_ID = packet[scapy.IP].id
         timestamp = packet.time
-        if packet[scapy.DHCP].options[0][1] != 1:
-		# On accepte de nouveau les trames broadcast mais on retire les trames Discover.
+        if packet.haslayer(scapy.DHCP) and packet[scapy.DHCP].options[0][1] != 1:
+		# Réparation du filtre. Le script essayer de trouver la partie DHCP de toutes les trames.
             dhcp_message_type = packet[scapy.DHCP].options[0][1]
             dhcp_type = type_dhcp[dhcp_message_type]
             date = datetime.fromtimestamp(timestamp, tz = None) 
