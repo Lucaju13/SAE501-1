@@ -71,6 +71,15 @@ def obtenir_type_trame():
     cursor = conn.cursor()
     
     cursor.execute("SELECT Type_Trame, Src_ip, COUNT(*) FROM data GROUP BY Type_Trame, Src_ip")
+    
+    type_trame_info = cursor.fetchall()
+    
+    conn.close()
+    
+    result = [{'type_trame': trame[0], 'ip_source': trame[1], 'nombre': trame[2]} for trame in type_trame_info]
+    
+    return jsonify(result)
+
 	
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True)
