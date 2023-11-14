@@ -20,7 +20,7 @@ def obtenir_elements():
     elements_dict = [dict(row) for row in elements]
     return jsonify(elements_dict)
 
-# Route pour obtenir un élément par son ID
+# Routes pour obtenir un élément par son ID
 @app.route('/api/elements/<int:element_id>', methods=['GET'])
 def obtenir_element(element_id):
     conn = connect_db()
@@ -33,7 +33,7 @@ def obtenir_element(element_id):
     else:
         return jsonify({'message': 'Element non trouve'}), 404
 
-# Route pour obtenir toutes les adresses IP destinataires
+# Route adresses IP destinataires
 @app.route('/api/dst_ip', methods=['GET'])
 def obtenir_ip_destinataire():
     conn = connect_db()
@@ -43,10 +43,25 @@ def obtenir_ip_destinataire():
     conn.close()
     ip_destinataire_list = [ip[0] for ip in ip_destinataire]
     return jsonify(ip_destinataire_list)
-
-# Route pour obtenir toutes les adresses IP source
+    
+@app.route('/api/dst_ip/<ip_dst>', methods=['GET'])
+def obtenir_info_ip_dst(ip_dst):
+    conn = connect_db()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT * FROM data WHERE Dst_ip = ?", (ip_dst,))
+    
+    ip_info = cursor.fetchall()
+    
+    conn.close()
+    
+    result = [{'type_trame': info[8], 'ip_source': info[1], 'ip_destianaire': info[2]} for info in ip_info]
+    
+    return jsonify(result)
+    
+# Routes adresses IP source
 @app.route('/api/src_ip', methods=['GET'])
-def obtenir_ip_source():
+def obtenir_ip_dst():
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute("SELECT Src_ip FROM data")
@@ -54,17 +69,34 @@ def obtenir_ip_source():
     conn.close()
     ip_source_list = [ip[0] for ip in ip_source]
     return jsonify(ip_source_list)
+
+@app.route('/api/src_ip/<ip_source>', methods=['GET'])
+def obtenir_info_ip_src(ip_source):
+    conn = connect_db()
+    cursor = conn.cursor()
     
+    cursor.execute("SELECT * FROM data WHERE Src_ip = ?", (ip_source,))
+    
+    ip_info = cursor.fetchall()
+    
+    conn.close()
+    
+    result = [{'type_trame': info[8], 'ip_source': info[1], 'ip_destianaire': info[2]} for info in ip_info]
+    
+    return jsonify(result)
+    
+# Route capture time
 @app.route('/api/capture_time', methods=['GET'])
 def obtenir_capture_time():
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute("SELECT Heure FROM data")
-    ip_destinataire = cursor.fetchall()
+    capture_time = cursor.fetchall()
     conn.close()
-    ip_destinataire_list = [ip[0] for ip in ip_destinataire]
-    return jsonify(ip_destinataire_list)
+    capture_time_list = [ip[0] for ip in capture_time]
+    return jsonify(capture_time_list)
 
+# Route Type Trame
 @app.route('/api/type_trame', methods=['GET'])
 def obtenir_type_trame():
     conn = connect_db()
@@ -80,35 +112,37 @@ def obtenir_type_trame():
     
     return jsonify(result)
 
-@app.route('/api/nombre_trame_par_ip', methods=['GET'])
-def obtenir_nombre_trame_par_ip():
+# Type Trame par IP Source
+@app.route('/api/nombre_trame_par_ip_src', methods=['GET'])
+def obtenir_nombre_trame_par_ip_src():
     conn = connect_db()
     cursor = conn.cursor()
     
     cursor.execute("SELECT Src_ip, COUNT(*) FROM data GROUP BY Src_ip")
     
-    nombre_trame_par_ip = cursor.fetchall()
+    nombre_trame_par_ip_src = cursor.fetchall()
     
     conn.close()
     
-    result = [{'ip_source': ip[0], 'nombre': ip[1]} for ip in nombre_trame_par_ip]
+    result = [{'ip_source': ip[0], 'nombre': ip[1]} for ip in nombre_trame_par_ip_src]
     
     return jsonify(result)
     
-@app.route('/api/src_ip/<ip_source>', methods=['GET'])
-def obtenir_info_ip(ip_source):
+# Type Trame par IP Destinataire
+@app.route('/api/nombre_trame_par_ip_dst', methods=['GET'])
+def obtenir_nombre_trame_par_ip_dst():
     conn = connect_db()
     cursor = conn.cursor()
     
-    cursor.execute("SELECT * FROM data WHERE Src_ip = ?", (ip_source,))
+    cursor.execute("SELECT Dst_ip, COUNT(*) FROM data GROUP BY Dst_ip")
     
-    ip_info = cursor.fetchall()
+    nombre_trame_par_ip_dst = cursor.fetchall()
     
     conn.close()
     
-    result = [{'type_trame': info[8], 'ip_source': info[1], 'ip_destianaire': info[2]} for info in ip_info]
+    result = [{'ip_destinataire': ip[0], 'nombre': ip[1]} for ip in nombre_trame_par_ip_dst]
     
     return jsonify(result)
-	
+    
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=True)
