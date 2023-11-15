@@ -31,12 +31,12 @@ class App(tk.Tk):
 
         # Création de la combobox pour le filtre 1
         self.filtre_1_var = tk.StringVar()
-        self.filtre_1_combobox = ttk.Combobox(self, textvariable=self.filtre_1_var, values=["Date", "Type de requete", "Type d'erreur"])
+        self.filtre_1_combobox = ttk.Combobox(self, textvariable=self.filtre_1_var, values=["Date", "Type de requete"])
         self.filtre_1_combobox.place(x=500, y=350)
 
         # Création de la combobox pour le filtre 2
         self.filtre_2_var = tk.StringVar()
-        self.filtre_2_combobox = ttk.Combobox(self, textvariable=self.filtre_2_var, values=["Date", "Type de requete", "Type d'erreur"])
+        self.filtre_2_combobox = ttk.Combobox(self, textvariable=self.filtre_2_var, values=["Date", "Type de requete"])
         self.filtre_2_combobox.place(x=600, y=350)
 
         # Boutons
