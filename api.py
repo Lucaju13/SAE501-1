@@ -9,6 +9,15 @@ def connect_db():
     conn.row_factory = sqlite3.Row
     return conn
 
+@app.route('/api/run_script', methods=['GET'])
+def run_script():
+    try:
+        # Exécutez le script en utilisant subprocess
+        subprocess.run(['python', 'script_sniffer.py'])
+        return jsonify({'message': 'Script exécuté avec succès'})
+    except Exception as e:
+        return jsonify({'message': f'Erreur lors de l\'exécution du script: {str(e)}'}), 500
+	    
 # Route pour obtenir tous les éléments
 @app.route('/api/elements', methods=['GET'])
 def obtenir_elements():
