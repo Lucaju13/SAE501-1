@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import sqlite3
+import subprocess
 
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ def connect_db():
 def run_script():
     try:
         # Exécutez le script en utilisant subprocess
-        subprocess.run(['sudo', 'python', 'script_sniffer.py'])
+        subprocess.run(['sudo', 'python3', 'script_sniffer.py'])
         return jsonify({'message': 'Script exécuté avec succès'})
     except Exception as e:
         return jsonify({'message': f'Erreur lors de l\'exécution du script: {str(e)}'}), 500
