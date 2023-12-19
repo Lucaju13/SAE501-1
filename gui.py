@@ -14,7 +14,7 @@ class App(tk.Tk):
     def create_widgets(self):
 
         # Box d'affichage des résultats de Test Unitaires
-        test_unitaires = tk.Label(self, text="Résultat tests unitaires")
+        test_unitaires = tk.Label(self, text="Dashboard")
         test_unitaires.pack(anchor="w")
         self.box_affichage_tests = tk.Text(self, height=10, width=50)
         self.box_affichage_tests.pack(anchor="w")
@@ -93,7 +93,7 @@ class App(tk.Tk):
 
         for stat in statistiques:
             self.box_affichage_tests.insert(tk.END, f"{stat[0]}: {stat[1]} requêtes\n")
-            total_requetes += stat[1]  # Ajoute le nombre de requêtes de chaque type au total
+            total_requetes += stat[1]  # Ajouter le nombre de requêtes de chaque type au total
 
         # La ligne pour afficher le nombre total de requêtes
         self.box_affichage_tests.insert(tk.END, f"\nNombre total de requêtes: {total_requetes}\n")
@@ -125,6 +125,8 @@ class App(tk.Tk):
         # Trie le Treeview en fonction de la colonne
         for i, item in enumerate(data):
             self.tree.move(item[1], "", i)
+
+
 
 if __name__ == "__main__":
     app = App()
