@@ -39,18 +39,19 @@ class App(tk.Tk):
         btn_sortir.place(x=1200, y=250) 
 
         # Ajout du bouton pour afficher les statistiques
-        btn_afficher_statistiques = tk.Button(self, text="Afficher les statistiques", command=self.afficher_statistiques)
+        btn_afficher_statistiques = tk.Button(self, text="Statistiques", command=self.afficher_statistiques)
         btn_afficher_statistiques.place(x=20, y=250)
 
 
         # Création du tableau
-        columns = ('ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST', 'PACKET ID','TIMESTAMP','DATE', 'TYPE')
+        columns = ('ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST', 'PACKET ID', 'TIMESTAMP', 'DATE', 'TYPE')
         self.tree = ttk.Treeview(self, columns=columns, show='headings')
 
         for col in columns:
-            self.tree.heading(col, text=col)
+            self.tree.heading(col, text=col, command=lambda c=col: self.trier_colonne(c))
             self.tree.column(col, width=163)
-        self.tree.place(x=20, y=380) 
+
+        self.tree.place(x=20, y=380)  
 
         # Bouton pour afficher les données dans la table
         btn_afficher_donnees = tk.Button(self, text="Afficher les données", command=self.afficher_filtre)
@@ -78,6 +79,7 @@ class App(tk.Tk):
                 self.box_affichage_erreurs.tag_configure("rouge", foreground="red")
                 self.box_affichage_erreurs.tag_add("rouge", "1.0", "end",)
                 self.box_affichage_erreurs.config(state="disabled")
+                
     
     def afficher_statistiques(self):
         self.cursor.execute("SELECT Type_Trame, COUNT(*) FROM data GROUP BY Type_Trame")
@@ -91,9 +93,9 @@ class App(tk.Tk):
 
         for stat in statistiques:
             self.box_affichage_tests.insert(tk.END, f"{stat[0]}: {stat[1]} requêtes\n")
-            total_requetes += stat[1]  # Ajouter le nombre de requêtes de chaque type au total
+            total_requetes += stat[1]  # Ajoute le nombre de requêtes de chaque type au total
 
-        # Ajouter une ligne pour afficher le nombre total de requêtes
+        # La ligne pour afficher le nombre total de requêtes
         self.box_affichage_tests.insert(tk.END, f"\nNombre total de requêtes: {total_requetes}\n")
 
         self.box_affichage_tests.config(state="disabled")
@@ -112,6 +114,17 @@ class App(tk.Tk):
         for row in self.cursor.fetchall():
             self.tree.insert('', 'end', values=row)
 
+    def trier_colonne(self, colonne):
+        """Fonction pour trier le tableau en fonction de la colonne cliquée."""
+        # Récupère tous les éléments actuellement dans le tableau
+        data = [(self.tree.set(child, colonne), child) for child in self.tree.get_children("")]
+
+        # Trie le Treeview en fonction de la colonne
+        data.sort()
+
+        # Trie le Treeview en fonction de la colonne
+        for i, item in enumerate(data):
+            self.tree.move(item[1], "", i)
 
 if __name__ == "__main__":
     app = App()
