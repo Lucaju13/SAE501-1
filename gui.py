@@ -64,14 +64,6 @@ class App(tk.Tk):
         self.conn = sqlite3.connect('sae501.db')
         self.cursor = self.conn.cursor()
 
-    def afficher_donnees(self):
-        for row in self.tree.get_children():
-            self.tree.delete(row)
-        self.cursor.execute("SELECT * FROM data")
-        for row in self.cursor.fetchall():
-            self.tree.insert('', 'end', values=row)
-
-
     def detecter_alertes(self):
         self.box_affichage_erreurs.delete(1.0, tk.END)  # Efface le contenu actuel
 
