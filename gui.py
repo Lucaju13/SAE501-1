@@ -27,16 +27,11 @@ class App(tk.Tk):
 
         # Ajout des combobox
         filtre_label = ttk.Label(self, text="Filtres :")
-        filtre_label.place(x=500, y=330)
+        filtre_label.place(x=500, y=350)
 
         # Création de la combobox pour le filtre 1
-        self.filtre_1_var = tk.StringVar()
-        self.filtre_1_combobox = ttk.Combobox(self, textvariable=self.filtre_1_var, values=["Date", "Type de requete"])
-        self.filtre_1_combobox.place(x=500, y=350)
-
-        # Création de la combobox pour le filtre 2
         self.filtre_2_var = tk.StringVar()
-        self.filtre_2_combobox = ttk.Combobox(self, textvariable=self.filtre_2_var, values=["Date", "Type de requete"])
+        self.filtre_2_combobox = ttk.Combobox(self, textvariable=self.filtre_2_var, values=["Request","nak","Offer","ack"])
         self.filtre_2_combobox.place(x=600, y=350)
 
         # Boutons
@@ -58,13 +53,12 @@ class App(tk.Tk):
         self.tree.place(x=20, y=380) 
 
         # Bouton pour afficher les données dans la table
-        btn_afficher_donnees = tk.Button(self, text="Afficher les données", command=self.afficher_donnees)
+        btn_afficher_donnees = tk.Button(self, text="Afficher les données", command=self.afficher_filtre)
         btn_afficher_donnees.place(x=20, y=340)
 
         # Bouton pour détecter les alertes
         btn_detecter_alertes = tk.Button(self, text="Lancer la détection d'alertes", command=self.detecter_alertes)
         btn_detecter_alertes.place(x=600, y=250)
-    
 #------------------------------------Fonctions-------------------------------
     def setup_database(self):
         self.conn = sqlite3.connect('sae501.db')
@@ -111,7 +105,20 @@ class App(tk.Tk):
         self.box_affichage_tests.insert(tk.END, f"\nNombre total de requêtes: {total_requetes}\n")
 
         self.box_affichage_tests.config(state="disabled")
+    
+    def afficher_filtre(self):
+        selected_filtre = self.filtre_2_var.get()
 
+        for row in self.tree.get_children():
+            self.tree.delete(row)
+
+        if selected_filtre:
+            self.cursor.execute(f"SELECT * FROM data WHERE Type_Trame = '{selected_filtre}'")
+        else:
+            self.cursor.execute("SELECT * FROM data")
+
+        for row in self.cursor.fetchall():
+            self.tree.insert('', 'end', values=row)
 
 
 if __name__ == "__main__":
