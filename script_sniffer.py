@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from daemonize import Daemonize
+
 import scapy.all as scapy
 from datetime import datetime
 import sqlite3
@@ -6,6 +10,8 @@ con = sqlite3.connect("sae501.db")
 cursor = con.cursor()
 ######### Joindre à SQL #########
 type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","inform","force_renew","lease_query","lease_unassigned","lease_unknown","lease_active"]
+
+pid = "/tmp/gokano_botd.pid"
 
 def packet_handler(packet):
     if packet.haslayer(scapy.IP):
@@ -31,5 +37,8 @@ def packet_handler(packet):
 def main(interface):
     scapy.sniff(iface=interface, prn=packet_handler)
 if __name__ == "__main__":
-    interface = "enp0s31f6"  # On n'a plus besoin de modifier l'adresse si on fait sur un raspberry
+    interface = "eno1"  # On n'a plus besoin de modifier l'adresse si on fait sur un raspberry
     main(interface)
+    
+daemon = Daemonize(app="gokano_botd", pid=pid, action=main)
+daemon.start()
