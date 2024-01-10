@@ -155,4 +155,4 @@ def obtenir_nombre_trame_par_ip_dst():
     return jsonify(result)
     
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=5000, debug=True)
+	app.run(host='0.0.0.0', port=5000, debug=False)
