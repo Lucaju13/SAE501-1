@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk 
 import sqlite3
-from nscript_sniffert import main as sniff_packets
+from script_sniffer import main as sniff_packets
 
 class App(tk.Tk):
     def __init__(self):
@@ -18,7 +18,7 @@ class App(tk.Tk):
 
     def create_widgets(self):
 
-        # Box d'affichage des résultats de Test Unitaires
+        # Box d'affichage des resultats de Test Unitaires
         test_unitaires = tk.Label(self, text="Dashboard")
         test_unitaires.pack(anchor="w")
         self.box_affichage_tests = tk.Text(self, height=10, width=50)
@@ -46,7 +46,10 @@ class App(tk.Tk):
         # Ajout du bouton pour afficher les statistiques
         btn_afficher_statistiques = tk.Button(self, text="Statistiques", command=self.afficher_statistiques)
         btn_afficher_statistiques.place(x=20, y=250)
-
+		
+        # Bouton scan
+        btn_scan_packets = tk.Button(self, text="Démarrer le scan des paquets", command=self.start_sniffing)
+        btn_scan_packets.place(x=20, y=290)
 
         # Création du tableau
         columns = ('ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST', 'PACKET ID', 'TIMESTAMP', 'DATE', 'TYPE')
