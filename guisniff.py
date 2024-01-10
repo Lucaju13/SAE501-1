@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk 
 import sqlite3
 from script_sniffer import main as sniff_packets
+import threading
 
 class App(tk.Tk):
     def __init__(self):
@@ -11,14 +12,24 @@ class App(tk.Tk):
 
         self.create_widgets()
         self.setup_database()
-        
+     
     def start_sniffing(self):
         interface = "eno1"
         sniff_packets(interface)
+        
+    def start_sniffing_threaded(self):
+        self.sniffing_thread = threading.Thread(target=self.start_sniffing)
+        self.sniffing_thread.start()
+
+        
+    def stop_sniffing(self):
+        if hasattr(self, 'sniffing_thread') and self.sniffing_thread.is_alive():
+            self.sniffing_thread.join()  # Attend que le thread se termine
+
 
     def create_widgets(self):
 
-        # Box d'affichage des resultats de Test Unitaires
+        # Box d'affichage des résultats de Test Unitaires
         test_unitaires = tk.Label(self, text="Dashboard")
         test_unitaires.pack(anchor="w")
         self.box_affichage_tests = tk.Text(self, height=10, width=50)
@@ -46,10 +57,15 @@ class App(tk.Tk):
         # Ajout du bouton pour afficher les statistiques
         btn_afficher_statistiques = tk.Button(self, text="Statistiques", command=self.afficher_statistiques)
         btn_afficher_statistiques.place(x=20, y=250)
-		
-        # Bouton scan
-        btn_scan_packets = tk.Button(self, text="Démarrer le scan des paquets", command=self.start_sniffing)
+        
+        # Bouton lancer scan DHCP
+        btn_scan_packets = tk.Button(self, text="Démarrer le scan des paquets", command=self.start_sniffing_threaded)
         btn_scan_packets.place(x=20, y=290)
+
+        # Bouton stop scan DHCP
+        btn_stop_sniffing = tk.Button(self, text="Arrêter le sniffing", command=self.stop_sniffing)
+        btn_stop_sniffing.place(x=250, y=290)
+
 
         # Création du tableau
         columns = ('ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST', 'PACKET ID', 'TIMESTAMP', 'DATE', 'TYPE')
