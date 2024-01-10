@@ -9,13 +9,13 @@ class App(tk.Tk):
         super().__init__()
         self.title("Projet Logiciel")
         self.geometry("1500x630")
-
         self.create_widgets()
         self.setup_database()
      
     def start_sniffing(self):
+        self.sniffing_active = True
         interface = "eno1"
-        sniff_packets(interface)
+        sniff_packets(interface, self)
         
     def start_sniffing_threaded(self):
         self.sniffing_thread = threading.Thread(target=self.start_sniffing)
@@ -23,9 +23,9 @@ class App(tk.Tk):
 
         
     def stop_sniffing(self):
+        self.sniffing_active = False
         if hasattr(self, 'sniffing_thread') and self.sniffing_thread.is_alive():
-            self.sniffing_thread.join()  # Attend que le thread se termine
-
+            self.sniffing_thread.join()
 
     def create_widgets(self):
 
@@ -152,6 +152,9 @@ class App(tk.Tk):
 
 
 
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
 if __name__ == "__main__":
     app = App()
     app.mainloop()
