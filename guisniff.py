@@ -24,9 +24,7 @@ class App(tk.Tk):
         
     def stop_sniffing(self):
         self.sniffing_active = False
-        if hasattr(self, 'sniffing_thread') and self.sniffing_thread.is_alive():
-            self.sniffing_thread.join()
-
+            
     def create_widgets(self):
 
         # Box d'affichage des résultats de Test Unitaires
@@ -150,11 +148,6 @@ class App(tk.Tk):
         for i, item in enumerate(data):
             self.tree.move(item[1], "", i)
 
-
-
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()
 if __name__ == "__main__":
     app = App()
     app.mainloop()
