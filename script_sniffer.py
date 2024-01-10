@@ -3,17 +3,16 @@ from datetime import datetime
 import sqlite3
 
 type_dhcp = ["","Discover","Offer","Request","Decline","ack","nak","release","inform","force_renew","lease_query","lease_unassigned","lease_unknown","lease_active"]
-
 sniffing_active = True  # Variable qui sert à renseigner si le sniffing doit être actif ou pas
 
-def stop_sniffing():
-	global sniffing_active
-	sniffing_active = False
+# Fonction non fonctionnelle supprimée
 
-def packet_handler(packet):
-	print("test") # Print qui me permet de voir si le script tourne puis si il est arrêté
-	con = sqlite3.connect("sae501.db") #
-	cursor = con.cursor() #
+def packet_handler(packet, app_instance):
+	if not app_instance.sniffing_active: # Le script s'arrête si le flag est désactivé, donc si le bouton stop est cliqué
+		return
+	print("test")
+	con = sqlite3.connect("sae501.db")
+	cursor = con.cursor()
 	global sniffing_active
 	if not sniffing_active:
 		return
@@ -38,11 +37,12 @@ def packet_handler(packet):
 			data_tuple = (Src_IP, Dst_IP, Src_MAC, Dst_MAC, Packet_ID, timestamp, date, dhcp_type) 
 			cursor.execute(sqlite_insert_query, data_tuple) 
 			con.commit()
-			cursor.close() #
-			con.close() #
+			cursor.close()
+			con.close()
 			
-def main(interface):
-	scapy.sniff(iface=interface, prn=packet_handler)
+def main(interface, app_instance):
+    while app_instance.sniffing_active: # Nouveau flag pour que le script continue tant que le bouton n'est pas cliqué
+        scapy.sniff(iface=interface, prn=lambda pkt: packet_handler(pkt, app_instance))
 	
 if __name__ == "__main__":
 	interface = "eno1"  # On n'a plus besoin de modifier l'adresse si on fait sur un raspberry
