@@ -81,6 +81,16 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIsInstance(response.json(), list)
         self.assertGreater(len(response.json()), 0)
         self.print_test_end("test_obtenir_ip_source_route")
+
+    def test_obtenir_info_ip_src_route(self):
+        self.print_test_start("test_obtenir_info_ip_src_route")
+        # Testez la route pour obtenir des informations sur une adresse IP source spécifique
+        response = requests.get('http://localhost:5000/api/src_ip/10.202.255.254')
+        print(f"Réponse de la requête : {response.text}")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.json(), list)
+        self.print_test_end("test_obtenir_info_ip_src_route")
+
     
 
 
