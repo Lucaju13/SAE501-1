@@ -91,6 +91,15 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIsInstance(response.json(), list)
         self.print_test_end("test_obtenir_info_ip_src_route")
 
+    def test_obtenir_capture_time_route(self):
+        self.print_test_start("test_obtenir_capture_time_route")
+        # Testez la route pour obtenir tous les temps de capture
+        response = requests.get('http://localhost:5000/api/capture_time')
+        print(f"Réponse de la requête : {response.text}")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.json(), list)
+        self.assertGreater(len(response.json()), 0)
+        self.print_test_end("test_obtenir_capture_time_route")
     
 
 
