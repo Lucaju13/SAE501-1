@@ -24,13 +24,6 @@ class TestFlaskApp(unittest.TestCase):
     def print_test_end(self, test_name):
         print(f"===== Fin du test : {test_name} =====\n")
 
-    @classmethod
-    def test2(cls):
-        print("Début du test 2")
-        response = requests.get('http://localhost:5000/api/elements')
-        print(f"Réponse de la requête : {response.text}")
-        print("Fin du test 2")
-
     def test_run_script_route(self):
         response = requests.get('http://localhost:5000/api/run_script')
         self.assertEqual(response.status_code, 200)
