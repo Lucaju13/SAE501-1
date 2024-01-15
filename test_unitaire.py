@@ -25,9 +25,13 @@ class TestFlaskApp(unittest.TestCase):
         print(f"===== Fin du test : {test_name} =====\n")
 
     def test_run_script_route(self):
+        self.print_test_start("test_run_script_route")
+        # Testez la route qui exécute le script
         response = requests.get('http://localhost:5000/api/run_script')
+        print(f"Réponse de la requête : {response.text}")
         self.assertEqual(response.status_code, 200)
         self.assertIn('Script exécuté avec succès', response.json()['message'])
+        self.print_test_end("test_run_script_route")
 
     def test_obtenir_elements_route(self):
         response = requests.get('http://localhost:5000/api/elements')
