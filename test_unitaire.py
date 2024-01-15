@@ -18,6 +18,12 @@ class TestFlaskApp(unittest.TestCase):
         cls.flask_process.terminate()
         cls.flask_process.wait()
 
+    def print_test_start(self, test_name):
+        print(f"===== Début du test : {test_name} =====")
+
+    def print_test_end(self, test_name):
+        print(f"===== Fin du test : {test_name} =====\n")
+
     @classmethod
     def test2(cls):
         print("Début du test 2")
