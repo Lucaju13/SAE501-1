@@ -100,6 +100,16 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIsInstance(response.json(), list)
         self.assertGreater(len(response.json()), 0)
         self.print_test_end("test_obtenir_capture_time_route")
+
+    def test_obtenir_type_trame_route(self):
+        self.print_test_start("test_obtenir_type_trame_route")
+        # Testez la route pour obtenir tous les types de trame
+        response = requests.get('http://localhost:5000/api/type_trame')
+        print(f"Réponse de la requête : {response.text}")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.json(), list)
+        self.assertGreater(len(response.json()), 0)
+        self.print_test_end("test_obtenir_type_trame_route")
     
 
 
