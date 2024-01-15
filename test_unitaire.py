@@ -110,6 +110,16 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIsInstance(response.json(), list)
         self.assertGreater(len(response.json()), 0)
         self.print_test_end("test_obtenir_type_trame_route")
+
+    def test_obtenir_nombre_trame_par_ip_src_route(self):
+        self.print_test_start("test_obtenir_nombre_trame_par_ip_src_route")
+        # Testez la route pour obtenir le nombre de trames par adresse IP source
+        response = requests.get('http://localhost:5000/api/nombre_trame_par_ip_src')
+        print(f"Réponse de la requête : {response.text}")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.json(), list)
+        self.assertGreater(len(response.json()), 0)
+        self.print_test_end("test_obtenir_nombre_trame_par_ip_src_route")
     
 
 
