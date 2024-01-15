@@ -44,9 +44,13 @@ class TestFlaskApp(unittest.TestCase):
         self.print_test_end("test_obtenir_elements_route")
 
     def test_obtenir_element_par_id_route(self):
+        self.print_test_start("test_obtenir_element_par_id_route")
+        # Testez la route pour obtenir un élément par son ID
         response = requests.get('http://localhost:5000/api/elements/6')
+        print(f"Réponse de la requête : {response.text}")
         self.assertEqual(response.status_code, 200)
         self.assertIn('ID', response.json())
+        self.print_test_end("test_obtenir_element_par_id_route")
 
 # Ajoutez d'autres tests pour les autres routes de votre application
 
