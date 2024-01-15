@@ -52,7 +52,17 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIn('ID', response.json())
         self.print_test_end("test_obtenir_element_par_id_route")
 
-# Ajoutez d'autres tests pour les autres routes de votre application
+    def test_obtenir_ip_destinataire_route(self):
+        self.print_test_start("test_obtenir_ip_destinataire_route")
+        # Testez la route pour obtenir toutes les adresses IP destinataires
+        response = requests.get('http://localhost:5000/api/dst_ip')
+        print(f"Réponse de la requête : {response.text}")
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.json(), list)
+        self.assertGreater(len(response.json()), 0)
+        self.print_test_end("test_obtenir_ip_destinataire_route")
+
+
 
 if __name__ == '__main__':
     unittest.main()
