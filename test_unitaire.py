@@ -37,9 +37,9 @@ class TestFlaskApp(unittest.TestCase):
         self.assertGreater(len(response.json()), 0)
 
     def test_obtenir_element_par_id_route(self):
-        response = requests.get('http://localhost:5000/api/elements/1')
+        response = requests.get('http://localhost:5000/api/elements/6')
         self.assertEqual(response.status_code, 200)
-        self.assertIn('id', response.json())
+        self.assertIn('ID', response.json())
 
 # Ajoutez d'autres tests pour les autres routes de votre application
 
