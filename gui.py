@@ -1,16 +1,39 @@
 import tkinter as tk
 from tkinter import ttk 
 import sqlite3
+from script_sniffer import main as sniff_packets
+import threading
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Projet Logiciel")
         self.geometry("1500x630")
-
         self.create_widgets()
         self.setup_database()
 
+
+    def afficher_message(self, message):
+        """Fonction pour afficher un message dans la boîte de texte du dashboard."""
+        self.box_affichage_tests.config(state="normal")
+        self.box_affichage_tests.insert(tk.END, message + "\n")
+        self.box_affichage_tests.config(state="disabled")
+
+    def start_sniffing(self):
+        self.afficher_message("Scan des paquets lancé.")
+        self.sniffing_active = True
+        interface = "enp0s3"
+        sniff_packets(interface, self)
+        
+    def start_sniffing_threaded(self):
+        self.sniffing_thread = threading.Thread(target=self.start_sniffing)
+        self.sniffing_thread.start()
+
+        
+    def stop_sniffing(self):
+        self.afficher_message("Scan des paquets arrêté.")
+        self.sniffing_active = False
+            
     def create_widgets(self):
 
         # Box d'affichage des résultats de Test Unitaires
@@ -41,6 +64,14 @@ class App(tk.Tk):
         # Ajout du bouton pour afficher les statistiques
         btn_afficher_statistiques = tk.Button(self, text="Statistiques", command=self.afficher_statistiques)
         btn_afficher_statistiques.place(x=20, y=250)
+        
+        # Bouton lancer scan DHCP
+        btn_scan_packets = tk.Button(self, text="Scan des paquets", command=self.start_sniffing_threaded)
+        btn_scan_packets.place(x=20, y=290)
+
+        # Bouton stop scan DHCP
+        btn_stop_sniffing = tk.Button(self, text="Arrêter le sniffing", command=self.stop_sniffing)
+        btn_stop_sniffing.place(x=250, y=290)
 
 
         # Création du tableau
@@ -125,8 +156,6 @@ class App(tk.Tk):
         # Trie le Treeview en fonction de la colonne
         for i, item in enumerate(data):
             self.tree.move(item[1], "", i)
-
-
 
 if __name__ == "__main__":
     app = App()
