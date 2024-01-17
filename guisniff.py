@@ -3,6 +3,7 @@ from tkinter import ttk
 import sqlite3
 from script_sniffer import main as sniff_packets
 import threading
+# taper " sudo setcap cap_net_raw=eip /usr/bin/python3.9 " 
 
 class App(tk.Tk):
     def __init__(self):
