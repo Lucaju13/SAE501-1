@@ -29,6 +29,7 @@ La répartition des rôles au sein de l'équipe est la suivante :
   - Conception de l'interface graphique.
   - Intégration de l'interface avec la base de données en Python.
   - Détection des alertes.
+  Voici le lien vers ma branche [Interface-Graphique]
 
 - Étudiant 4 : Mme Toure
   - Modularisation de l'application sous forme de plugins.
