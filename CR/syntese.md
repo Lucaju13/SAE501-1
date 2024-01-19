@@ -1,6 +1,6 @@
 # Synthése
 
-## Ce que j'ai apris
+#### Ce que j'ai apris
 
-## Difficultés rencontrés
+#### Difficultés rencontrés
 
