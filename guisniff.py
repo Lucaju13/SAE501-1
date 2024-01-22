@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import ttk 
 import sqlite3
-from script_sniffer import main as sniff_packets
 import threading
+import sys
+sys.path.append('Scripts/')
+from sniff_gui import main as sniff_packets
 # taper " sudo setcap cap_net_raw=eip /usr/bin/python3.9 " 
 
 class App(tk.Tk):
@@ -15,7 +17,7 @@ class App(tk.Tk):
      
     def start_sniffing(self):
         self.sniffing_active = True
-        interface = "eno1"
+        interface = "wlan0"
         sniff_packets(interface, self)
         
     def start_sniffing_threaded(self):
@@ -152,3 +154,4 @@ class App(tk.Tk):
 if __name__ == "__main__":
     app = App()
     app.mainloop()
+
