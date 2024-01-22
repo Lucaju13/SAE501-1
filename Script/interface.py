@@ -149,7 +149,7 @@ class App(tk.Tk):
 
         self.parse_json = json.loads(self.data)
 
-        # Utilisez un dictionnaire pour stocker le nombre de trames par type
+        #  un dictionnaire pour stocker le nombre de trames par type
         type_count = {}
 
         for trame in self.parse_json:
