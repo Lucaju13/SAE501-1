@@ -12,18 +12,19 @@ Ce code est une application GUI (Interface Graphique Utilisateur) en utilisant l
 Ensuite j'ai utilisé un constructeur (__init__) que initialise la fenêtre principale avec un titre, une taille et appelle deux méthodes (create_widgets et setup_api) pour créer les composants de l'interface graphique et configurer l'API.
 
 ## Partie II
-### Definition de butons
-- 
-- 
-- 
-- 
-- 
-### Definition de box de textes
+### Definition de Methodes (Fonctions)
+- Méthodes pour Afficher des Informations dans l'Interface
+Ces méthodes affichent différents types d'informations dans les zones de texte de l'interface, comme des messages, des filtres, et des statistiques sur les trames réseau analysées.
+![Alt text](../images/3.png)
+![Alt text](../images/8.png)
+![Alt text](../images/9.png)
 
 
-### Definition de tableau
+-
+-
+-
+-
+-
 
-## Partie III
-## Methodes (Fonctions)
 
 
