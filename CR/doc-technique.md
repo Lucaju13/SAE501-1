@@ -65,7 +65,10 @@ Cette méthode affiche des statistiques sur le nombre de trames par type dans la
 
 #### Méthode create_widgets
 Cette méthode crée et place tous les widgets (éléments graphiques) dans la fenêtre. Cela inclut des boutons, des zones de texte, des combobox, et un tableau (Treeview) pour afficher des données.
+ - Zone de texte (Dashboard)
 ![Alt text](../images/7.png)
+
+- 
 
 
 
