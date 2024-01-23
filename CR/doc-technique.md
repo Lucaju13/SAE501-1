@@ -26,11 +26,11 @@ Cette méthode permet d'afficher un message dans une boîte de texte spécifiée
 - Affichage de données + filtres
 ![Alt text](../images/8.png)
 
-J'ai cette méthode utilisée pour filtrer et afficher des données JSON dans la structure d'interface utilisateur Tkinter (Treeview). Elle nettoie d'abord la structure, puis filtre les données en fonction de la valeur du filtre sélectionné, et enfin insère les données filtrées dans la structure d'interface utilisateur.
+J'ai utilisée cette méthode pour filtrer et afficher des données JSON reçues àpartir de l'API Rest dans la structure d'interface utilisateur Tkinter (Treeview). Elle nettoie d'abord la structure, puis filtre les données en fonction de la valeur du filtre sélectionné, et enfin insère les données filtrées dans la structure d'interface utilisateur.
 
-1 - selected_filtre = self.filtre_2_var.get(): Récupère la valeur actuelle du filtre sélectionné à partir d'une variable Tkinter (filtre_2_var).
+1 - selected_filtre = self.filtre_2_var.get(): Il récupère la valeur actuelle du filtre sélectionné à partir d'une variable Tkinter (filtre_2_var).
 
-2 - self.parse_json = json.loads(self.data): Charge les données JSON stockées dans la variable self.data en utilisant la fonction loads du module json. Cela suppose que self.data contient une chaîne JSON valide.
+2 - self.parse_json = json.loads(self.data): Cette ligne sert à charger les données JSON stockées dans la variable self.data en utilisant la fonction loads du module json. Cela suppose que self.data contient une chaîne JSON valide.
 
 3 - for row in self.tree.get_children(): self.tree.delete(row): Nettoie toutes les lignes actuellement présentes dans la structure d'interface utilisateur (Treeview) pour s'assurer qu'elle est vide avant d'afficher les données filtrées.
 
