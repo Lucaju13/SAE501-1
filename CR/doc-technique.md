@@ -41,6 +41,28 @@ J'ai utilisée cette méthode pour filtrer et afficher des données JSON reçues
 - Affichage de statistiques 
 ![Alt text](../images/9.png)
 
+Cette méthode affiche des statistiques sur le nombre de trames par type dans la boite de texte (Dashboard). Elle nettoie d'abord la boîte de texte, analyse les données JSON pour compter le nombre de trames par type, affiche ces statistiques dans la boîte de texte, puis affiche le nombre total de trames.
+
+1 - self.box_affichage_tests.config(state="normal"): Cette ligne configure l'état de la boîte de texte box_affichage_tests en "normal", permettant ainsi la modification du texte.
+
+2- self.box_affichage_tests.delete(1.0, tk.END): Supprime tout le contenu actuel de la boîte de texte. Cela est fait pour nettoyer la boîte avant d'afficher de nouvelles statistiques.
+
+3 - self.parse_json = json.loads(self.data): Charge les données JSON stockées dans la variable self.data en utilisant json.loads() pour les transformer en une structure Python (probablement une liste de dictionnaires).
+
+4 - Crée un dictionnaire type_count pour stocker le nombre de trames par type.
+
+5 - Parcourt chaque trame dans self.parse_json et compte le nombre de trames par type en utilisant le dictionnaire type_count.
+
+6 - Calcule le nombre total de requêtes en sommant les valeurs du dictionnaire type_count.
+
+7 - Parcourt le dictionnaire type_count et insère chaque type de trame avec son nombre correspondant dans la boîte de texte.
+
+8 - Ajoute une ligne vide dans la boîte de texte.
+
+9 - Ajoute une ligne indiquant le nombre total de trames.
+
+10 - self.box_affichage_tests.config(state="disabled"): Configure à nouveau l'état de la boîte de texte en "disabled", ce qui signifie que le texte ne peut plus être modifié. Cela est souvent utilisé pour empêcher l'utilisateur d'éditer le contenu de la boîte de texte.
+
 
 
 
