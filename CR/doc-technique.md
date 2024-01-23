@@ -83,6 +83,8 @@ J'ai utilisé une zone de texte pour pouvoir afficher la detenction d'alertes.
 
 Ce code crée une combobox avec quatre options ("Request", "nak", "Offer", "ack") dans l'interface. Lorsque l'utilisateur sélectionne une option, la méthode self.afficher_filtre() est appelée pour mettre à jour l'affichage en fonction du filtre sélectionné. La particularité ici c'est que j'ai utilisé <lambda> que lie un événement à la combobox. Cet événement est déclenché lorsque l'utilisateur sélectionne un élément dans la combobox. Lorsque cet événement se produit, la méthode self.afficher_filtre() est appelée, probablement pour mettre à jour l'affichage en fonction de la nouvelle sélection dans la combobox.
 
+- Boutons
+![Alt text](../images/13.png)
 
 
 
