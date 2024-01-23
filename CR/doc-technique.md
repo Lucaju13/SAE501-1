@@ -14,6 +14,7 @@ Ensuite j'ai utilisé un constructeur (__init__) que initialise la fenêtre prin
 ## Partie II
 ### Definition de Methodes (Fonctions)
 - Méthodes pour Afficher des Informations dans l'Interface
+
 Ces méthodes affichent différents types d'informations dans les zones de texte de l'interface, comme des messages, des filtres, et des statistiques sur les trames réseau analysées.
 ![Alt text](../images/3.png)
 ![Alt text](../images/8.png)
