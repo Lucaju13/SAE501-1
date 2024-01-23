@@ -29,9 +29,13 @@ Cette méthode permet d'afficher un message dans une boîte de texte spécifiée
 J'ai cette méthode utilisée pour filtrer et afficher des données JSON dans la structure d'interface utilisateur Tkinter (Treeview). Elle nettoie d'abord la structure, puis filtre les données en fonction de la valeur du filtre sélectionné, et enfin insère les données filtrées dans la structure d'interface utilisateur.
 
 1 - selected_filtre = self.filtre_2_var.get(): Récupère la valeur actuelle du filtre sélectionné à partir d'une variable Tkinter (filtre_2_var).
+
 2 - self.parse_json = json.loads(self.data): Charge les données JSON stockées dans la variable self.data en utilisant la fonction loads du module json. Cela suppose que self.data contient une chaîne JSON valide.
+
 3 - for row in self.tree.get_children(): self.tree.delete(row): Nettoie toutes les lignes actuellement présentes dans la structure d'interface utilisateur (Treeview) pour s'assurer qu'elle est vide avant d'afficher les données filtrées.
+
 4 - if selected_filtre: filtered_data = [trame for trame in self.parse_json if trame.get('Type_Trame', '') == selected_filtre]: Si un filtre est sélectionné, crée une liste appelée filtered_data qui contient uniquement les éléments de self.parse_json dont la clé 'Type_Trame' est égale à la valeur du filtre sélectionné. Sinon, filtered_data est égal à l'ensemble complet de données self.parse_json.
+
 5 - for row in filtered_data: ...: Parcours chaque élément de filtered_data et extrait les valeurs associées aux clés spécifiques ('ID', 'Src_IP', etc.). Ces valeurs sont ensuite insérées dans la structure d'interface utilisateur (Treeview) à la fin de la liste, créant ainsi une nouvelle ligne avec les données filtrées.
 
 - Affichage de statistiques 
