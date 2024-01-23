@@ -65,10 +65,23 @@ Cette méthode affiche des statistiques sur le nombre de trames par type dans la
 
 #### Méthode create_widgets
 Cette méthode crée et place tous les widgets (éléments graphiques) dans la fenêtre. Cela inclut des boutons, des zones de texte, des combobox, et un tableau (Treeview) pour afficher des données.
- - Zone de texte (Dashboard)
+ - Zone de text (Dashboard)
 ![Alt text](../images/7.png)
 
-- 
+- Zone de text pour la detenction d'alertes
+![Alt text](../images/10.png)
+
+J'ai utilisé une zone de texte pour pouvoir afficher la detenction d'alertes.
+
+- Label
+![Alt text](../images/11.png)
+
+- Combobox
+![Alt text](../images/12.png)
+
+Ce code crée une combobox avec quatre options ("Request", "nak", "Offer", "ack") dans l'interface. Lorsque l'utilisateur sélectionne une option, la méthode self.afficher_filtre() est appelée pour mettre à jour l'affichage en fonction du filtre sélectionné. La particularité ici c'est que j'ai utilisé <lambda> que lie un événement à la combobox. Cet événement est déclenché lorsque l'utilisateur sélectionne un élément dans la combobox. Lorsque cet événement se produit, la méthode self.afficher_filtre() est appelée, probablement pour mettre à jour l'affichage en fonction de la nouvelle sélection dans la combobox.
+
+
 
 
 
