@@ -74,7 +74,6 @@ Cette méthode crée et place tous les widgets (éléments graphiques) dans la f
 J'ai utilisé une zone de texte pour pouvoir afficher la detenction d'alertes.
 
 - Label
-
 ![Alt text](../images/11.png)
 
 - Combobox
