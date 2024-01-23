@@ -15,7 +15,8 @@ Ensuite j'ai utilisé un constructeur (__init__) que initialise la fenêtre prin
 ### Definition de Methodes (Fonctions)
 #### Méthodes pour Afficher des Informations dans l'Interface
 
-Ces méthodes affichent différents types d'informations dans les zones de texte de l'interface, comme des messages, des filtres, et des statistiques sur les trames réseau analysées.
+Ces méthodes affichent différents types d'informations dans les zones de texte de l'interface (dashboard), comme des messages, des filtres, et des statistiques sur les trames réseau analysées.
+- Affichage de Message
 ![Alt text](../images/3.png)
 
 Cette méthode permet d'afficher un message dans une boîte de texte spécifiée (box_affichage_tests) dans l'interface graphique. Elle commence par autoriser la modification de la boîte de texte, y insère le message à la fin suivi d'un saut de ligne, puis désactive à nouveau la possibilité de modification de la boîte de texte. J'ai utilisé cella pour afficher une message lorsque l'API est connecté ou pas, aussi lorsque le script de scan de paquets est lancé ainsi quand il s'est arreté.
