@@ -63,6 +63,14 @@ Cette méthode affiche des statistiques sur le nombre de trames par type dans la
 
 10 - self.box_affichage_tests.config(state="disabled"): Configure à nouveau l'état de la boîte de texte en "disabled", ce qui signifie que le texte ne peut plus être modifié. Cela est souvent utilisé pour empêcher l'utilisateur d'éditer le contenu de la boîte de texte.
 
+### Méthode create_widgets
+![Alt text](../images/4.png)
+
+Cette méthode crée et place tous les widgets (éléments graphiques) dans la fenêtre. Cela inclut des boutons, des zones de texte, des combobox, et un tableau (Treeview) pour afficher des données.
+
+
+
+
 
 
 
