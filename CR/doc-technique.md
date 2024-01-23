@@ -8,6 +8,7 @@ J'ai importé les modules tkinter, requests, json, et threading. Le module scrip
 
 ### Definition de Class 'App'
 ![Alt text](../images/2.png)
+
 J'ai defini une classe 'App' héritant de 'tk.Tk' [grace au contenu de ce lien](https://www.pierre-giraud.com/python-apprendre-programmer-cours/oriente-objet-heritage-polymorphisme/).
 Ensuite j'ai utilisé un constructeur (__init__) que initialise la fenêtre principale avec un titre, une taille et appelle deux méthodes (create_widgets et setup_api) pour créer les composants de l'interface graphique et configurer l'API.
 
