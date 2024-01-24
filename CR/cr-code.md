@@ -16,7 +16,7 @@ Pour lancer le script et avoir toutes les fonctionalités, il faut le faire en *
 - 7 : Ce bouton permet de analyser les trames et nous afficher des alertes
 - 8 : Ce bouton permet de fermer/sortir du programme
 - 9 : Ici on peut filtrer les types de trames qu'on veut, il ya déjà des parametrés defini mais on peut aussi filtrer manuelement, c'est-a-dire en écrivant.
-- 10 : Ces **Headings** ou tete du tableau ils sont dinamiques, ça sert a trier les paquets en clicant la-dessus.
+- 10 : Ces **Headings** ou tete du tableau sont dinamiques, ça sert a trier les paquets en clicant la-dessus.
 
 #### Éxecution
 ![Alt_text](../images/23.png)
