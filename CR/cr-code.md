@@ -5,3 +5,7 @@ Pour lancer le script et avoir toutes les fonctionalités, il faut le faire en *
 
 #### Lancement
 ![Alt_text](../images/25.png)
+
+#### Éxecution
+![Alt_text](../images/23.png)
+
