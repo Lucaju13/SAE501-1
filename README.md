@@ -37,5 +37,5 @@ La répartition des rôles au sein de l'équipe est la suivante :
 
 En résumé, notre objectif est de développer un outil logiciel complet pour la gestion des baux DHCP dans un réseau local, en répondant aux exigences du client et en répartissant les tâches de manière efficace au sein de l'équipe.
 
-![Alt_text](sae502.png)
+![Alt_text](SAE502.png)
 
