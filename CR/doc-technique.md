@@ -99,6 +99,28 @@ Dans cette partie j'ai crée une structure de tableau dans l'interface avec des 
 
 Globalement, ces méthodes sont liées à la capture de paquets réseau à l'aide de Scapy, j'ai utilisé en forme de  module pour pouvoir executer le script de sniff que se trouve à l'exterieur. La méthode start_sniffing démarre le scan des paquets de manière synchrone, tandis que start_sniffing_threaded le fait de manière asynchrone en utilisant un thread. La méthode stop_sniffing est utilisée pour arrêter le scan des paquets.
 
+#### Méthodes pour Configurer l'API
+![Alt text](../images/18.png)
+
+La méthode setup_api établie une connexion à une API REST via une requête HTTP GET vers l'URL http://localhost:5001/api/elements.
+
+1 - Effectue une requête GET vers l'API REST à l'URL spécifié.
+
+2 - Vérifie si le code d'état de la réponse est égal à 200 (réussite de la requête).
+
+3 - Si la requête est réussie :
+Stocke le contenu de la réponse dans la variable self.data.
+Affiche un message dans une boîte de texte indiquant que la connexion à l'API REST a été établie avec succès.
+
+4 - Si la requête échoue :
+
+5 - Affiche un message dans la boîte de texte indiquant que la connexion a échoué, incluant le code d'état de la réponse.
+
+6 - Désactive la possibilité de modifier le texte dans la boîte de texte.
+
+
+
+
 
 
 
