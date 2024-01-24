@@ -96,7 +96,7 @@ class App(tk.Tk):
 
     #------------------------------------Fonctions-------------------------------
     def setup_api(self):
-        self.response_API = requests.get('http://10.202.0.61:5000/api/elements')
+        self.response_API = requests.get('http://localhost:5000/api/elements')
         if self.response_API.status_code == 200:
             self.data = self.response_API.text
             self.box_affichage_tests.insert(tk.END, "Connexion API REST bien établie.\n")  # Ajout de ce message dans le dashboard
@@ -117,10 +117,10 @@ class App(tk.Tk):
                 self.box_affichage_erreurs.insert(tk.END, message + "\n", "rouge")  # Balisez le message avec "rouge"
                 self.box_affichage_erreurs.config(state="disabled")
 
-                # Ajoutez une indication visuelle dans le tableau
+                # Indication visuelle dans le tableau
                 self.ajouter_ligne_tableau(trame, rouge=True)
             else:
-                # Ajoutez la ligne normale dans le tableau
+                # Ligne normale dans le tableau
                 self.ajouter_ligne_tableau(trame, rouge=False)
 
         # Configuration de l'étiquette pour la couleur rouge
