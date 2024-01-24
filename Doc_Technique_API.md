@@ -1,109 +1,82 @@
-# Documentation Technique de l'API
+# Documentation Technique
+## Structure du Code
 
-# Sommaire
+## Sommaire
 
-1. [Introduction](#introduction)
-2. [Prérequis](#prérequis)
-3. [Installation](#installation)
-4. [Configuration](#configuration)
-5. [Utilisation](#utilisation)
-6. [Endpoints](#endpoints)
-   - [Exécution du Script](#exécution-du-script)
-   - [Obtention de tous les éléments](#obtention-de-tous-les-éléments)
-   - [Obtention d'un élément par ID](#obtention-dun-élément-par-id)
-   - [Adresses IP destinataires](#adresses-ip-destinataires)
-   - [Adresses IP source](#adresses-ip-source)
-   - [Capture Time](#capture-time)
-   - [Type Trame](#type-trame)
-   - [Nombre de Trames par IP Source](#nombre-de-trames-par-ip-source)
-   - [Nombre de Trames par IP Destinataire](#nombre-de-trames-par-ip-destinataire)
-7. [Conclusion](#conclusion)
+1. [Importation des Modules](#importation-des-modules)
+    - Flask: Framework web.
+    - request: Gestion des requêtes HTTP.
+    - jsonify: Conversion des données en format JSON.
+    - sqlite3: Interaction avec la base de données SQLite.
+    - subprocess: Exécution de scripts Python en tant que processus séparés.
 
+2. [Configuration de l'Application Flask](#configuration-de-lapplication-flask)
+    - Initialisation d'une instance Flask.
 
-## Introduction
-Cette documentation fournit des informations détaillées sur l'utilisation de l'API. L'API est construite à l'aide de Flask, et elle expose des fonctionnalités pour exécuter un script, obtenir des informations sur les éléments stockés dans une base de données SQLite, ainsi que des statistiques sur les adresses IP, les temps de capture et le type de trame.
+3. [Fonction de Connexion à la Base de Données SQLite](#fonction-de-connexion-à-la-base-de-données-sqlite)
+    - Fonction `connect_db()` qui établit une connexion à la base de données SQLite 'sae501.db'.
 
-## Prérequis
-- Python 3.x installé sur la machine
-- Flask et ses dépendances installées (vous pouvez les installer en exécutant `pip install Flask`)
+4. [Exécution d'un Script avec subprocess](#exécution-dun-script-avec-subprocess)
+    - Route `/api/run_script` (GET) qui exécute le script `script_sniffer.py` avec subprocess.
 
-## Installation
-1. Téléchargez le script de l'API sur votre machine.
-2. Assurez-vous que Python est installé.
-3. Installez Flask en exécutant `pip3 install Flask`.
+5. [Routes pour Obtenir des Éléments depuis la Base de Données](#routes-pour-obtenir-des-éléments-depuis-la-base-de-données)
+    - `/api/elements` (GET) : Récupère tous les éléments.
+    - `/api/elements/<element_id>` (GET) : Récupère un élément par son ID.
 
-## Configuration
-- Le script utilise une base de données SQLite nommée 'sae501.db'.
-- Le script suppose que le script 'script_sniffer.py' peut être exécuté avec `sudo python3 script_sniffer.py`.
+6. [Routes pour les Adresses IP Destinataires](#routes-pour-les-adresses-ip-destinataires)
+    - `/api/dst_ip` (GET) : Récupère toutes les adresses IP destinataires.
+    - `/api/dst_ip/<ip_dst>` (GET) : Récupère des informations spécifiques sur une adresse IP destinataire.
 
-## Utilisation
-- Exécutez le script de l'API `api.py`.
-- L'API sera accessible aux adresses spécifiées lors de l’exécution du script.
+7. [Routes pour les Adresses IP Source](#routes-pour-les-adresses-ip-source)
+    - `/api/src_ip` (GET) : Récupère toutes les adresses IP source.
+    - `/api/src_ip/<ip_source>` (GET) : Récupère des informations spécifiques sur une adresse IP source.
 
-![Alt_text](adresses.png)
+8. [Routes pour le Temps de Capture et le Type de Trame](#routes-pour-le-temps-de-capture-et-le-type-de-trame)
+    - `/api/capture_time` (GET) : Récupère les moments de capture.
+    - `/api/type_trame` (GET) : Récupère les types de trame et le nombre associé, regroupés par adresse IP source.
 
-## Endpoints
-1. **Exécution du Script**
-   - Endpoint: `/api/run_script`
-   - Méthode: GET
-   - Description: Exécute le script 'script_sniffer.py'.
-   - Réponse réussie: `{'message': 'Script exécuté avec succès'}`
+9. [Routes pour le Nombre de Trames par Adresse IP Source et Destination](#routes-pour-le-nombre-de-trames-par-adresse-ip-source-et-destination)
+    - `/api/nombre_trame_par_ip_src` (GET) : Récupère le nombre de trames capturées regroupées par adresse IP source.
+    - `/api/nombre_trame_par_ip_dst` (GET) : Récupère le nombre de trames capturées regroupées par adresse IP destinataire.
 
-2. **Obtention de tous les éléments**
-   - Endpoint: `/api/elements`
-   - Méthode: GET
-   - Description: Récupère tous les éléments stockés dans la base de données.
-   - Réponse réussie: Liste de dictionnaires représentant les éléments.
+10. [Exécution de l'Application Flask](#exécution-de-lapplication-flask)
+    - `if __name__ == '__main__': app.run(host='0.0.0.0', port=5000, debug=False)`
 
-3. **Obtention d'un élément par ID**
-   - Endpoint: `/api/elements/<int:element_id>`
-   - Méthode: GET
-   - Description: Récupère un élément spécifique en fonction de son ID.
-   - Réponse réussie: Dictionnaire représentant l'élément trouvé.
+## 1. Importation des Modules
+- Flask: Framework web.
+- request: Gestion des requêtes HTTP.
+- jsonify: Conversion des données en format JSON.
+- sqlite3: Interaction avec la base de données SQLite.
+- subprocess: Exécution de scripts Python en tant que processus séparés.
 
-4. **Adresses IP destinataires**
-   - Endpoint: `/api/dst_ip`
-   - Méthode: GET
-   - Description: Récupère toutes les adresses IP destinataires disponibles dans la base de données.
-   - Réponse réussie: Liste des adresses IP destinataires.
-   - Endpoint: `/api/dst_ip/<ip_dst>`
-   - Méthode: GET
-   - Description: Récupère des informations sur une adresse IP destinataire spécifique.
-   - Réponse réussie: Liste d'informations sur l'adresse IP destinataire.
+## 2. Configuration de l'Application Flask
+- Initialisation d'une instance Flask.
 
-5. **Adresses IP source**
-   - Endpoint: `/api/src_ip`
-   - Méthode: GET
-   - Description: Récupère toutes les adresses IP source disponibles dans la base de données.
-   - Réponse réussie: Liste des adresses IP source.
-   - Endpoint: `/api/src_ip/<ip_source>`
-   - Méthode: GET
-   - Description: Récupère des informations sur une adresse IP source spécifique.
-   - Réponse réussie: Liste d'informations sur l'adresse IP source.
+## 3. Fonction de Connexion à la Base de Données SQLite
+- Fonction `connect_db()` qui établit une connexion à la base de données SQLite 'sae501.db'.
 
-6. **Capture Time**
-   - Endpoint: `/api/capture_time`
-   - Méthode: GET
-   - Description: Récupère tous les temps de capture disponibles dans la base de données.
-   - Réponse réussie: Liste des temps de capture.
+## 4. Exécution d'un Script avec subprocess
+- Route `/api/run_script` (GET) qui exécute le script `script_sniffer.py` avec subprocess.
 
-7. **Type Trame**
-   - Endpoint: `/api/type_trame`
-   - Méthode: GET
-   - Description: Récupère des informations sur le type de trame en groupant par adresse IP source.
-   - Réponse réussie: Liste d'informations sur le type de trame par adresse IP source.
+## 5. Routes pour Obtenir des Éléments depuis la Base de Données
+- `/api/elements` (GET) : Récupère tous les éléments.
+- `/api/elements/<element_id>` (GET) : Récupère un élément par son ID.
 
-8. **Nombre de Trames par IP Source**
-   - Endpoint: `/api/nombre_trame_par_ip_src`
-   - Méthode: GET
-   - Description: Récupère le nombre de trames groupées par adresse IP source.
-   - Réponse réussie: Liste du nombre de trames par adresse IP source.
+## 6. Routes pour les Adresses IP Destinataires
+- `/api/dst_ip` (GET) : Récupère toutes les adresses IP destinataires.
+- `/api/dst_ip/<ip_dst>` (GET) : Récupère des informations spécifiques sur une adresse IP destinataire.
 
-9. **Nombre de Trames par IP Destinataire**
-   - Endpoint: `/api/nombre_trame_par_ip_dst`
-   - Méthode: GET
-   - Description: Récupère le nombre de trames groupées par adresse IP destinataire.
-   - Réponse réussie: Liste du nombre de trames par adresse IP destinataire.
+## 7. Routes pour les Adresses IP Source
+- `/api/src_ip` (GET) : Récupère toutes les adresses IP source.
+- `/api/src_ip/<ip_source>` (GET) : Récupère des informations spécifiques sur une adresse IP source.
 
-## Conclusion
-Cette documentation fournit une vue d'ensemble des fonctionnalités de l'API, comment la configurer et l'utiliser. Assurez-vous de respecter les prérequis et les configurations nécessaires pour un fonctionnement optimal.
+## 8. Routes pour le Temps de Capture et le Type de Trame
+- `/api/capture_time` (GET) : Récupère les moments de capture.
+- `/api/type_trame` (GET) : Récupère les types de trame et le nombre associé, regroupés par adresse IP source.
+
+## 9. Routes pour le Nombre de Trames par Adresse IP Source et Destination
+- `/api/nombre_trame_par_ip_src` (GET) : Récupère le nombre de trames capturées regroupées par adresse IP source.
+- `/api/nombre_trame_par_ip_dst` (GET) : Récupère le nombre de trames capturées regroupées par adresse IP destinataire.
+
+## 10. Exécution de l'Application Flask
+- `if __name__ == '__main__': app.run(host='0.0.0.0', port=5000, debug=False)`
