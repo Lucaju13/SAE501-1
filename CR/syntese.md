@@ -1,13 +1,13 @@
-# Synthése
-Dans un premier temps, j'ai fait l'interface graphique en utilisant la bibliotheque python Tkinter avec la base de données en SQLite comme source de données, avec le temps et le besoin de faire quelque chose plus dinamique j'ai opté pour changer la recuperation de données directement de l'API rest une fois que l'API utilise la base de données. C'est pour ça que à la fin j'ai eu deux versions de script (connexion avec base de données et connexion avec l'API).
+# Synthèse
+Dans un premier temps, j'ai créé l'interface graphique en utilisant la bibliothèque Python Tkinter avec la base de données SQLite comme source de données. Avec le temps et le besoin de rendre quelque chose de plus dynamique, j'ai opté pour changer la récupération de données directement depuis l'API REST, une fois que celle-ci utilise la base de données. C'est pourquoi, à la fin, j'ai obtenu deux versions de script (connexion avec la base de données et connexion avec l'API).
 
 #### Ce que j'ai apris
-- J'ai pu avoir une base trés solide en Programmation Orienté au Object
-- Connaissance aprofondie sur DHCP
-- Connaissance apronfondie sur Tkinter, tableau
-- Maitrise de modules JSON et requests
+- J'ai pu acquérir une base très solide en Programmation Orientée Objet.
+- Connaissance approfondie sur le protocole DHCP.
+- Connaissance approfondie sur Tkinter et les tableaux.
+- Maîtrise des modules JSON et requests.
 
-#### Difficultés rencontrés
-- Je n'ai pas pu réussir à destaquer la trame d'alerte en rouge
-- Difficultés rencontrés lors de l'adaptation du code pour lire des données en JSON (mais aprés j'ai réussi)
+#### Difficultés rencontrées
+- Je n'ai pas réussi à mettre en évidence la trame d'alerte en rouge.
+- Difficultés rencontrées lors de l'adaptation du code pour lire des données en JSON (mais après j'ai réussi).
 
