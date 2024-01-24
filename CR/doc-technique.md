@@ -95,8 +95,9 @@ Ces lignes de code créent des boutons dans l'interface avec différentes foncti
 Dans cette partie j'ai crée une structure de tableau dans l'interface avec des colonnes spécifiées, des en-têtes de colonne configurés, et des paramètres de mise en page tels que la position et la largeur des colonnes. Il y a une particularité dans ce code **"for col in columns: ..."**: cette boucle permet de parcourir chaque colonne et configure les en-têtes de colonne avec les noms correspondants. La commande self.trier_colonne(c) est liée à chaque en-tête, indiquant probablement une fonction de tri qui sera appelée lorsqu'un en-tête est cliqué.
 
 #### Méthodes pour Manipuler les Paquets Réseau
+![Alt text](../images/16.png)
 
-
+Globalement, ces méthodes sont liées à la capture de paquets réseau à l'aide de Scapy, j'ai utilisé en forme de  module pour pouvoir executer le script de sniff que se trouve à l'exterieur. La méthode start_sniffing démarre le scan des paquets de manière synchrone, tandis que start_sniffing_threaded le fait de manière asynchrone en utilisant un thread. La méthode stop_sniffing est utilisée pour arrêter le scan des paquets.
 
 
 
