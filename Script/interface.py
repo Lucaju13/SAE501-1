@@ -96,7 +96,7 @@ class App(tk.Tk):
 
     #------------------------------------Fonctions-------------------------------
     def setup_api(self):
-        self.response_API = requests.get('http://10.202.0.57:5001/api/elements')
+        self.response_API = requests.get('http://localhost:5000/api/elements')
         if self.response_API.status_code == 200:
             self.data = self.response_API.text
             self.box_affichage_tests.insert(tk.END, "Connexion API REST bien établie.\n")  # Ajout de ce message dans le dashboard
