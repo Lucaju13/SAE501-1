@@ -128,6 +128,8 @@ def obtenir_nombre_trame_par_ip_dst():
     conn.close()
     result = [{'ip_destinataire': ip[0], 'nombre': ip[1]} for ip in nombre_trame_par_ip_dst]
     return jsonify(result)
-    
+
+# autre ajout de fonction possible selon les routes voulues par les clients
+
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=5000, debug=False)
