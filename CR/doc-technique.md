@@ -132,6 +132,8 @@ La méthode **detecter_alertes** analyse des trames réseau stockées au format 
 
 7 - Désactive la possibilité de modifier le texte dans la boîte de texte.
 
+Ici j'ai me focalisé sur la detenction des alertes de paquets DHCP capturés dans des salles 202 et 203.
+
 #### Méthode pour Trier les Colonnes du Tableau
 ![Alt text](../images/20.png)
 
