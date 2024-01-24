@@ -139,7 +139,7 @@ class App(tk.Tk):
             trame.get('Heure', ''),
             trame.get('Type_Trame', '')
         )
-        # Utilisez une configuration de couleur différente pour les lignes d'alerte dans le tableau
+        # configuration de couleur différente pour les lignes d'alerte dans le tableau
         tags = () if not rouge else ("rouge_tableau",)
         self.tree.insert('', 'end', values=values, tags=tags)
 
