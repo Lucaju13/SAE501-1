@@ -4,6 +4,7 @@ import requests
 import json
 from script_sniffer import main as sniff_packets
 import threading
+import ipaddress
 
 class App(tk.Tk):
     def __init__(self):
@@ -96,7 +97,7 @@ class App(tk.Tk):
 
     #------------------------------------Fonctions-------------------------------
     def setup_api(self):
-        self.response_API = requests.get('http://localhost:5000/api/elements')
+        self.response_API = requests.get('http://10.202.0.61:5000/api/elements')
         if self.response_API.status_code == 200:
             self.data = self.response_API.text
             self.box_affichage_tests.insert(tk.END, "Connexion API REST bien établie.\n")  # Ajout de ce message dans le dashboard
@@ -159,6 +160,7 @@ class App(tk.Tk):
 
         for trame in filtered_data:
             self.ajouter_ligne_tableau(trame, rouge=False)
+
     def afficher_statistiques(self):
         self.box_affichage_tests.config(state="normal")
         self.box_affichage_tests.delete(1.0, tk.END)
