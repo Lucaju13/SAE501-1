@@ -109,16 +109,41 @@ class App(tk.Tk):
 
         self.parse_json = json.loads(self.data)
 
-         for trame in self.parse_json:
+        for trame in self.parse_json:
             ip_dst = trame.get('Dst_IP', '') 
             if not (ip_dst.startswith('10.202.') or ip_dst.startswith('10.203.') or ip_dst.startswith('255.255.255.255')):
                 message = f"Alerte détectée: Adresse IP hors du sous-réseau autorisé. Trame: {trame}"
                 self.box_affichage_erreurs.config(state="normal")
-                self.box_affichage_erreurs.insert(tk.END, message + "\n")
-                self.box_affichage_erreurs.tag_configure("rouge", foreground="red")
-                self.box_affichage_erreurs.tag_add("rouge", "1.0", "end",)
+                self.box_affichage_erreurs.insert(tk.END, message + "\n", "rouge")  # Balisez le message avec "rouge"
                 self.box_affichage_erreurs.config(state="disabled")
-                
+
+                # Ajoutez une indication visuelle dans le tableau
+                self.ajouter_ligne_tableau(trame, rouge=True)
+            else:
+                # Ajoutez la ligne normale dans le tableau
+                self.ajouter_ligne_tableau(trame, rouge=False)
+
+        # Configuration de l'étiquette pour la couleur rouge
+        self.box_affichage_erreurs.tag_configure("rouge", foreground="red")
+
+    def ajouter_ligne_tableau(self, trame, rouge=False):
+        values = (
+            trame.get('ID', ''),
+            trame.get('Src_IP', ''),
+            trame.get('Dst_IP', ''),
+            trame.get('Src_MAC', ''),
+            trame.get('Dst_MAC', ''),
+            trame.get('Packet_ID', ''),
+            trame.get('Time', ''),
+            trame.get('Heure', ''),
+            trame.get('Type_Trame', '')
+        )
+        # Utilisez une configuration de couleur différente pour les lignes d'alerte dans le tableau
+        tags = () if not rouge else ("rouge_tableau",)
+        self.tree.insert('', 'end', values=values, tags=tags)
+
+        # Configuration de l'étiquette pour la couleur rouge dans le tableau
+        self.tree.tag_configure("rouge_tableau", background="red", foreground="white")
 
     def afficher_filtre(self):
         selected_filtre = self.filtre_2_var.get()
@@ -132,20 +157,8 @@ class App(tk.Tk):
         else:
             filtered_data = self.parse_json
 
-        for row in filtered_data:
-            values = (
-                row.get('ID', ''),
-                row.get('Src_IP', ''),
-                row.get('Dst_IP', ''),
-                row.get('Src_MAC', ''),
-                row.get('Dst_MAC', ''),
-                row.get('Packet_ID', ''),
-                row.get('Time', ''),
-                row.get('Heure', ''),
-                row.get('Type_Trame', '')
-            )
-            self.tree.insert('', 'end', values=values)
-
+        for trame in filtered_data:
+            self.ajouter_ligne_tableau(trame, rouge=False)
     def afficher_statistiques(self):
         self.box_affichage_tests.config(state="normal")
         self.box_affichage_tests.delete(1.0, tk.END)
