@@ -2,5 +2,5 @@
 Guilhem
   - Mise en place de l'API REST
 
-Documentation Technique
 [Code de l'API](api.py)
+[Documentation Technique](Doc_Technique_API.md)
