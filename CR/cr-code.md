@@ -7,7 +7,7 @@ Pour lancer le script et avoir toutes les fonctionalités, il faut le faire en *
 ![Alt_text](../images/25.png)
 **Legende:**
 
-- [x]
+- [x] ksd
 
 #### Éxecution
 ![Alt_text](../images/23.png)
