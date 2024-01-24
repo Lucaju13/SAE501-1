@@ -6,6 +6,7 @@ Dans un premier temps, j'ai créé l'interface graphique en utilisant la bibliot
 - Connaissance approfondie sur le protocole DHCP.
 - Connaissance approfondie sur Tkinter et les tableaux.
 - Maîtrise des modules JSON et requests.
+- Compétences plus solides en Git.
 
 #### Difficultés rencontrées
 - Je n'ai pas réussi à mettre en évidence la trame d'alerte en rouge.
