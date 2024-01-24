@@ -4,7 +4,6 @@ import requests
 import json
 from script_sniffer import main as sniff_packets
 import threading
-import ipaddress
 
 class App(tk.Tk):
     def __init__(self):
