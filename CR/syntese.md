@@ -4,13 +4,10 @@ Dans un premier temps, j'ai fait l'interface graphique en utilisant la bibliothe
 #### Ce que j'ai apris
 - J'ai pu avoir une base trés solide en Programmation Orienté au Object
 - Connaissance aprofondie sur DHCP
-- Connaissance apronfondie sur Tkinte, tableau
+- Connaissance apronfondie sur Tkinter, tableau
 - Maitrise de modules JSON et requests
 
 #### Difficultés rencontrés
-- 
--
--
--
--
+- Je n'ai pas pu réussir à destaquer la trame d'alerte en rouge
+- Difficultés rencontrés lors de l'adaptation du code pour lire des données en JSON (mais aprés j'ai réussi)
 
