@@ -109,14 +109,16 @@ class App(tk.Tk):
 
         self.parse_json = json.loads(self.data)
 
-        for trame in self.parse_json:
+         for trame in self.parse_json:
             ip_dst = trame.get('Dst_IP', '') 
             if not (ip_dst.startswith('10.202.') or ip_dst.startswith('10.203.') or ip_dst.startswith('255.255.255.255')):
                 message = f"Alerte détectée: Adresse IP hors du sous-réseau autorisé. Trame: {trame}"
+                self.box_affichage_erreurs.config(state="normal")
                 self.box_affichage_erreurs.insert(tk.END, message + "\n")
                 self.box_affichage_erreurs.tag_configure("rouge", foreground="red")
                 self.box_affichage_erreurs.tag_add("rouge", "1.0", "end",)
                 self.box_affichage_erreurs.config(state="disabled")
+                
 
     def afficher_filtre(self):
         selected_filtre = self.filtre_2_var.get()
