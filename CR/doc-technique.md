@@ -29,7 +29,7 @@ Cette méthode permet d'afficher un message dans une boîte de texte spécifiée
 
 Ces codes ils sont associées à la gestion d'un tableau (self.tree), généralement utilisé dans l'interface graphique pour afficher des données.
 
-1 - ajouter_ligne_tableau(self, trame, rouge=False) :
+- **1 - ajouter_ligne_tableau(self, trame, rouge=False) :**
 
 Cette méthode prend une trame en entrée et l'ajoute à un tableau (self.tree). Les valeurs de chaque colonne de la ligne sont extraites à partir des propriétés de la trame. Si l'argument optionnel rouge est vrai, une configuration spécifique est appliquée pour indiquer une alerte visuelle dans le tableau.
 values : Un tuple contenant les valeurs de chaque colonne de la ligne.
@@ -40,7 +40,8 @@ La ligne est ensuite ajoutée au tableau avec les valeurs et les tags spécifié
 
 Une configuration est ajoutée pour spécifier que les lignes avec le tag "rouge_tableau" doivent avoir une couleur de fond rouge et une couleur de texte blanche.
 
-2 - afficher_filtre(self) :
+- **2 - afficher_filtre(self) :**
+
 Cette méthode est liée à la gestion de filtres dans le tableau. Elle efface toutes les lignes existantes dans le tableau, puis filtre les données JSON en fonction de la valeur sélectionnée dans un filtre (selected_filtre). Si un filtre est appliqué, seules les trames correspondant au type de trame sélectionné sont conservées. Ensuite, chaque trame filtrée est ajoutée au tableau en utilisant la méthode ajouter_ligne_tableau avec rouge=False, ce qui signifie qu'aucune alerte n'est indiquée visuellement.
 
 *PS :* Le code assume que le tableau (self.tree) et d'autres éléments associés sont correctement définis dans le contexte global de la classe, car ces méthodes semblent faire référence à des attributs de l'instance de la classe.
