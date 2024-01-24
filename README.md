@@ -29,6 +29,7 @@ La répartition des rôles au sein de l'équipe est la suivante :
   - Conception de l'interface graphique.
   - Intégration de l'interface avec la base de données en Python.
   - Détection des alertes.
+
 Voici le [lien](https://github.com/Ndeye-codou-toure/SAE501/tree/Interface-Graphique) vers ma branche!
 
 - Étudiant 4 : Mme Toure
