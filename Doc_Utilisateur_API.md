@@ -1,8 +1,12 @@
 # Documentation Utilisateur API
 ## Application de Surveillance Réseau
 
-Bienvenue dans l'application de surveillance réseau basée sur Flask. Cette application vous permet d'explorer les données de capture réseau stockées dans une base de données SQLite. Voici comment vous pouvez utiliser les fonctionnalités disponibles :
+Bienvenue dans l'application de surveillance réseau basée sur Flask. Cette application vous permet d'explorer les données de capture réseau stockées dans une base de données SQLite. Voici comment vous pouvez utiliser les fonctionnalités disponibles.
 
+L'api est accessible sur les adresses :
+
+- http://localhost:5000/"endpoints" (depuis le raspberry)
+- http://"@IP raspberry":5000/"endpoints" (depuis les autres machines sur le réseau)
 ## Exécuter le Script de Capture
 
 - **Endpoint:** `/api/run_script` (GET)
