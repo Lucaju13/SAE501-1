@@ -150,6 +150,27 @@ def obtenir_info_mac_dst(mac_dest):
     result = [{'type_trame': info[8], 'mac_source': info[3], 'mac_destinataire': info[4]} for info in mac_info]
     return jsonify(result)
 
+# Routes adresses MAC source
+@app.route('/api/src_mac', methods=['GET'])
+def obtenir_mac_source():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT Src_mac FROM data")
+    mac_source = cursor.fetchall()
+    conn.close()
+    mac_source_list = [mac[0] for mac in mac_source]
+    return jsonify(mac_source_list)
+
+@app.route('/api/src_mac/<mac_src>', methods=['GET'])
+def obtenir_info_mac_src(mac_src):
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM data WHERE Src_mac = ?", (mac_src,))
+    mac_info = cursor.fetchall()
+    conn.close()
+    result = [{'type_trame': info[8], 'mac_source': info[3], 'mac_destinataire': info[4]} for info in mac_info]
+    return jsonify(result)
+
 # Route pour compter le nombre de requêtes DHCP de type Discover par Src_mac au cours des dernières 10 secondes
 @app.route('/api/request_srcmac', methods=['GET'])
 def obtenir_nombre_requetes_dhcp_discover_par_mac_dernieres_10_secondes():
