@@ -114,6 +114,15 @@ La méthode setup_api établie une connexion à une API REST via une requête HT
 
 6 - Désactive la possibilité de modifier le texte dans la boîte de texte.
 
+#### Méthode pour Détecter des Alertes
+![Alt text](../images/19.png)
+
+#### Méthode pour Trier les Colonnes du Tableau
+![Alt text](../images/20.png)
+
+#### Boucle Principale
+![Alt text](../images/21.png)
+
 
 
 
