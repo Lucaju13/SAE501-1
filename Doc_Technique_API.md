@@ -40,6 +40,8 @@ Cette documentation fournit des informations détaillées sur l'utilisation de l
 - Exécutez le script de l'API `api.py`.
 - L'API sera accessible aux adresses spécifiées lors de l’exécution du script.
 
+![Alt_text](adresses.png)
+
 ## Endpoints
 1. **Exécution du Script**
    - Endpoint: `/api/run_script`
