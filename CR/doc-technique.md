@@ -94,7 +94,8 @@ Ces lignes de code créent des boutons dans l'interface avec différentes foncti
 
 Dans cette partie j'ai crée une structure de tableau dans l'interface avec des colonnes spécifiées, des en-têtes de colonne configurés, et des paramètres de mise en page tels que la position et la largeur des colonnes. Il y a une particularité dans ce code **"for col in columns: ..."**: cette boucle permet de parcourir chaque colonne et configure les en-têtes de colonne avec les noms correspondants. La commande self.trier_colonne(c) est liée à chaque en-tête, indiquant probablement une fonction de tri qui sera appelée lorsqu'un en-tête est cliqué.
 
-### Méthodes pour Manipuler les Paquets Réseau
+#### Méthodes pour Manipuler les Paquets Réseau
+
 
 
 
