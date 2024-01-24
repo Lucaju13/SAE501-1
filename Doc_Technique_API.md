@@ -1,5 +1,25 @@
 # Documentation Technique de l'API
 
+# Sommaire
+
+1. [Introduction](#introduction)
+2. [Prérequis](#prérequis)
+3. [Installation](#installation)
+4. [Configuration](#configuration)
+5. [Utilisation](#utilisation)
+6. [Endpoints](#endpoints)
+   - [Exécution du Script](#exécution-du-script)
+   - [Obtention de tous les éléments](#obtention-de-tous-les-éléments)
+   - [Obtention d'un élément par ID](#obtention-dun-élément-par-id)
+   - [Adresses IP destinataires](#adresses-ip-destinataires)
+   - [Adresses IP source](#adresses-ip-source)
+   - [Capture Time](#capture-time)
+   - [Type Trame](#type-trame)
+   - [Nombre de Trames par IP Source](#nombre-de-trames-par-ip-source)
+   - [Nombre de Trames par IP Destinataire](#nombre-de-trames-par-ip-destinataire)
+7. [Conclusion](#conclusion)
+
+
 ## Introduction
 Cette documentation fournit des informations détaillées sur l'utilisation de l'API. L'API est construite à l'aide de Flask, et elle expose des fonctionnalités pour exécuter un script, obtenir des informations sur les éléments stockés dans une base de données SQLite, ainsi que des statistiques sur les adresses IP, les temps de capture et le type de trame.
 
