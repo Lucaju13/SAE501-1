@@ -1,17 +1,17 @@
 # Description du code
-Ce code est une application GUI (Interface Graphique Utilisateur) en utilisant le module Tkinter de Python, le code est basé sur la Programation Orienté au Object, ce qui m'a permis de gagner plus de temps (en appellant les variables partout dans le code) et aussi la propre organisation du code. Il sert pour effectuer une analyse de paquets réseau à l'aide du module script_sniffer, afficher les résultats dans une interface graphique et interagir avec une API REST.
+Ce code est une application GUI (Interface Graphique Utilisateur) en utilisant le module Tkinter de Python, le code est basé sur la Programation Orienté au Object, ce qui permet de gagner plus de temps (en appellant les variables partout dans le code) et aussi la propre organisation du code. Il sert pour effectuer une analyse de paquets réseau à l'aide du module script_sniffer, afficher les résultats dans une interface graphique et interagir avec une API REST.
 
 ## Partie I
 ### Modules importés
 ![Alt text](../images/1.png)
 
-J'ai importé les modules tkinter, requests, json, et threading. Le module script_sniffer est également importé avec l'alias sniff_packets.
+Ces lignes de code sert à importer les modules tkinter, requests, json, et threading. Le module script_sniffer est également importé avec l'alias sniff_packets.
 
 ### Definition de Class 'App'
 ![Alt text](../images/2.png)
 
-J'ai defini une classe 'App' héritant de 'tk.Tk' [grace au contenu de ce lien](https://www.pierre-giraud.com/python-apprendre-programmer-cours/oriente-objet-heritage-polymorphisme/).
-Ensuite j'ai utilisé un constructeur (__init__) que initialise la fenêtre principale avec un titre, une taille et appelle deux méthodes (create_widgets et setup_api) pour créer les composants de l'interface graphique et configurer l'API.
+Definition d'une classe 'App' héritant de 'tk.Tk' [grace au contenu de ce lien](https://www.pierre-giraud.com/python-apprendre-programmer-cours/oriente-objet-heritage-polymorphisme/).
+L'utilisation d'un constructeur (__init__) que initialise la fenêtre principale avec un titre, une taille et appelle deux méthodes (create_widgets et setup_api) pour créer les composants de l'interface graphique et configurer l'API.
 
 ## Partie II
 ### Definition de Methodes (Fonctions)
@@ -26,7 +26,7 @@ Cette méthode permet d'afficher un message dans une boîte de texte spécifiée
 - Affichage de données + filtres
 ![Alt text](../images/8.png)
 
-J'ai utilisée cette méthode pour filtrer et afficher des données JSON reçues àpartir de l'API Rest dans la structure d'interface utilisateur Tkinter (Treeview). Elle nettoie d'abord la structure, puis filtre les données en fonction de la valeur du filtre sélectionné, et enfin insère les données filtrées dans la structure d'interface utilisateur.
+Cette méthode est utilisée pour filtrer et afficher des données JSON reçues àpartir de l'API Rest dans la structure d'interface utilisateur Tkinter (Treeview). Elle nettoie d'abord la structure, puis filtre les données en fonction de la valeur du filtre sélectionné, et enfin insère les données filtrées dans la structure d'interface utilisateur.
 
 1 - selected_filtre = self.filtre_2_var.get(): Il récupère la valeur actuelle du filtre sélectionné à partir d'une variable Tkinter (filtre_2_var).
 
@@ -71,17 +71,17 @@ Cette méthode crée et place tous les widgets (éléments graphiques) dans la f
 - Zone de text pour la detenction d'alertes
 ![Alt text](../images/10.png)
 
-J'ai utilisé une zone de texte pour pouvoir afficher la detenction d'alertes.
+Utilisation d'une zone de texte pour pouvoir afficher la detenction d'alertes.
 
 - Label
 
-Ça m'a servi pour donner de tittres dans les zones, j'ai utilisé pour m'aider a donner un tittre à cote de combobox de filtrage.
+Les labels ça sert pour donner de tittres dans les zones, j'ai utilisé pour m'aider a donner un tittre à cote de combobox de filtrage.
 ![Alt text](../images/11.png)
 
 - Combobox
 ![Alt text](../images/12.png)
 
-Ce code crée une combobox avec quatre options ("Request", "nak", "Offer", "ack") dans l'interface. Lorsque l'utilisateur sélectionne une option, la méthode self.afficher_filtre() est appelée pour mettre à jour l'affichage en fonction du filtre sélectionné. La particularité ici c'est que j'ai utilisé <lambda> que lie un événement à la combobox. Cet événement est déclenché lorsque l'utilisateur sélectionne un élément dans la combobox. Lorsque cet événement se produit, la méthode self.afficher_filtre() est appelée, probablement pour mettre à jour l'affichage en fonction de la nouvelle sélection dans la combobox.
+Ce code crée une combobox avec quatre options ("Request", "nak", "Offer", "ack") dans l'interface. Lorsque l'utilisateur sélectionne une option, la méthode self.afficher_filtre() est appelée pour mettre à jour l'affichage en fonction du filtre sélectionné. La particularité ici c'est l'utilisation de <lambda> que lie un événement à la combobox. Cet événement est déclenché lorsque l'utilisateur sélectionne un élément dans la combobox. Lorsque cet événement se produit, la méthode self.afficher_filtre() est appelée, probablement pour mettre à jour l'affichage en fonction de la nouvelle sélection dans la combobox.
 
 - Boutons
 ![Alt text](../images/13.png)
@@ -92,12 +92,12 @@ Ces lignes de code créent des boutons dans l'interface avec différentes foncti
 - Création de tableau
 ![Alt text](../images/14.png)
 
-Dans cette partie j'ai crée une structure de tableau dans l'interface avec des colonnes spécifiées, des en-têtes de colonne configurés, et des paramètres de mise en page tels que la position et la largeur des colonnes. Il y a une particularité dans ce code **"for col in columns: ..."**: cette boucle permet de parcourir chaque colonne et configure les en-têtes de colonne avec les noms correspondants. La commande self.trier_colonne(c) est liée à chaque en-tête, indiquant probablement une fonction de tri qui sera appelée lorsqu'un en-tête est cliqué.
+Ces lignes de code crée une structure de tableau dans l'interface avec des colonnes spécifiées, des en-têtes de colonne configurés, et des paramètres de mise en page tels que la position et la largeur des colonnes. Il y a une particularité dans ce code **"for col in columns: ..."**: cette boucle permet de parcourir chaque colonne et configure les en-têtes de colonne avec les noms correspondants. La commande self.trier_colonne(c) est liée à chaque en-tête, indiquant probablement une fonction de tri qui sera appelée lorsqu'un en-tête est cliqué.
 
 #### Méthodes pour Manipuler les Paquets Réseau
 ![Alt text](../images/16.png)
 
-Globalement, ces méthodes sont liées à la capture de paquets réseau à l'aide de Scapy, j'ai utilisé en forme de  module pour pouvoir executer le script de sniff que se trouve à l'exterieur. La méthode start_sniffing démarre le scan des paquets de manière synchrone, tandis que start_sniffing_threaded le fait de manière asynchrone en utilisant un thread. La méthode stop_sniffing est utilisée pour arrêter le scan des paquets.
+Globalement, ces méthodes sont liées à la capture de paquets réseau à l'aide de Scapy, l'utilisation en forme de  module permet d'executer le script de sniff que se trouve à l'exterieur. La méthode start_sniffing démarre le scan des paquets de manière synchrone, tandis que start_sniffing_threaded le fait de manière asynchrone en utilisant un thread. La méthode stop_sniffing est utilisée pour arrêter le scan des paquets.
 
 #### Méthodes pour Configurer l'API
 ![Alt text](../images/18.png)
@@ -132,7 +132,7 @@ La méthode **detecter_alertes** analyse des trames réseau stockées au format 
 
 7 - Désactive la possibilité de modifier le texte dans la boîte de texte.
 
-Ici j'ai me focalisé sur la detenction des alertes de paquets DHCP capturés dans des salles 202 et 203.
+Ici le code est focalisé sur la detenction des alertes de paquets DHCP capturés dans des salles 202 et 203.
 
 #### Méthode pour Trier les Colonnes du Tableau
 ![Alt text](../images/20.png)
