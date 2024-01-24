@@ -4,6 +4,8 @@
 Pour lancer le script et avoir toutes les fonctionalités, il faut le faire en **sudo**, une fois que le module sniff il est présent dans l'interface et il marche qu'en **sudo**.
 
 #### Lancement
+**commande**: sudo python3 interface.py
+![Alt_text](../images/26.png)
 ![Alt_text](../images/25.png)
 **Legende:**
 
