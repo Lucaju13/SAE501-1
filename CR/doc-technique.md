@@ -119,11 +119,17 @@ La méthode setup_api établie une connexion à une API REST via une requête HT
 
 La méthode **detecter_alertes** analyse des trames réseau stockées au format JSON, détecte des alertes en fonction de critères spécifiques sur les adresses IP de destination, et affiche les alertes détectées dans une boîte de texte dédiée. D'abord ce code: 
 1 - Efface le contenu actuel de la boîte de texte dédiée aux alertes.
+
 2 - Charge les données JSON en une structure Python.
+
 3 - Parcourt chaque trame dans les données JSON.
+
 4 - Vérifie si l'adresse IP de destination de la trame n'appartient pas à certains sous-réseaux autorisés.
+
 5 - Si une alerte est détectée, construit un message d'alerte.
+
 6 - Insère le message d'alerte dans la boîte de texte avec un style rouge.
+
 7 - Désactive la possibilité de modifier le texte dans la boîte de texte.
 
 #### Méthode pour Trier les Colonnes du Tableau
@@ -131,8 +137,11 @@ La méthode **detecter_alertes** analyse des trames réseau stockées au format 
 
 La méthode **trier_colonne** sert a trier les éléments du tableau crée au-dessus, en fonction de la colonne sur laquelle l'utilisateur a cliqué.
 1 - Récupère toutes les valeurs de la colonne spécifiée pour chaque élément du tableau, ainsi que les identifiants correspondants.
+
 2 - Crée une liste de tuples, chaque tuple contenant la valeur de la colonne et l'identifiant de l'élément.
+
 3 - Trie cette liste en fonction des valeurs de la colonne.
+
 4 - Réorganise les éléments du tableau dans l'ordre trié en utilisant la méthode move du tableau.
 
 #### Boucle Principale
