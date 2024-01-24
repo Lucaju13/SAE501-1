@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk 
+from tkinter import ttk
 import requests
 import json
 from script_sniffer import main as sniff_packets
@@ -10,9 +10,9 @@ class App(tk.Tk):
         super().__init__()
         self.title("Projet Logiciel")
         self.geometry("1500x630")
-
         self.create_widgets()
         self.setup_api()
+        self.configure(bg="#B0E0E6")
 
     def afficher_message(self, message):
         """Fonction pour afficher un message dans la boîte de texte du dashboard."""
@@ -25,28 +25,26 @@ class App(tk.Tk):
         self.sniffing_active = True
         interface = "enp0s3"
         sniff_packets(interface, self)
-        
+
     def start_sniffing_threaded(self):
         self.sniffing_thread = threading.Thread(target=self.start_sniffing)
         self.sniffing_thread.start()
 
-        
     def stop_sniffing(self):
         self.afficher_message("Scan des paquets arrêté.")
         self.sniffing_active = False
 
     def create_widgets(self):
-
         # Box d'affichage (Dashboard)
         test_unitaires = tk.Label(self, text="Dashboard")
         test_unitaires.pack(anchor="w")
-        self.box_affichage_tests = tk.Text(self, height=10, width=50)
+        self.box_affichage_tests = tk.Text(self, bg="#D3D3D3",height=10, width=50)
         self.box_affichage_tests.pack(anchor="w")
 
         # Box d'affichage des erreurs
-        erreurs = tk.Label(self, text="Detection d'alertes")
+        erreurs = tk.Label(self,text="Detection d'alertes")
         erreurs.place(x=950, y=1)
-        self.box_affichage_erreurs = tk.Text(self, height=10, width=123)
+        self.box_affichage_erreurs = tk.Text(self,bg="#D3D3D3", height=10, width=123)
         self.box_affichage_erreurs.place(x=500, y=20)
 
         # Ajout des combobox
@@ -55,47 +53,50 @@ class App(tk.Tk):
 
         # Création de la combobox pour le filtre 1
         self.filtre_2_var = tk.StringVar()
-        self.filtre_2_combobox = ttk.Combobox(self, textvariable=self.filtre_2_var, values=["Request","nak","Offer","ack"])
+        self.filtre_2_combobox = ttk.Combobox(self, textvariable=self.filtre_2_var, values=["Request", "nak", "Offer", "ack"])
         self.filtre_2_combobox.place(x=600, y=350)
         self.filtre_2_combobox.bind("<<ComboboxSelected>>", lambda event: self.afficher_filtre())
 
         # Boutons
-        btn_sortir = tk.Button(self, text="Sortir du programme", command=self.quit)
-        btn_sortir.place(x=1200, y=250) 
+        btn_sortir = ttk.Button(self, text="Sortir du programme", command=self.quit)
+        btn_sortir.place(x=1200, y=250)
 
         # Ajout du bouton pour afficher les statistiques
-        btn_afficher_statistiques = tk.Button(self, text="Stats", command=self.afficher_statistiques)
+        btn_afficher_statistiques = ttk.Button(self, text="Stats", command=self.afficher_statistiques)
         btn_afficher_statistiques.place(x=20, y=250)
 
         # Bouton lancer scan DHCP
-        btn_scan_packets = tk.Button(self, text="Scan des paquets", command=self.start_sniffing_threaded)
+        btn_scan_packets = ttk.Button(self, text="Scan des paquets", command=self.start_sniffing_threaded)
         btn_scan_packets.place(x=20, y=290)
 
         # Bouton stop scan DHCP
-        btn_stop_sniffing = tk.Button(self, text="Arrêter le sniffing", command=self.stop_sniffing)
+        btn_stop_sniffing = ttk.Button(self, text="Arrêter le sniffing", command=self.stop_sniffing)
         btn_stop_sniffing.place(x=250, y=290)
-
 
         # Création du tableau
         columns = ('ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST', 'PACKET ID', 'TIMESTAMP', 'DATE', 'TYPE')
         self.tree = ttk.Treeview(self, columns=columns, show='headings')
 
+        self.tree.tag_configure("background_column", background="#D3D3D3")
+
+        self.tree.place(x=20, y=380) 
+
         for col in columns:
             self.tree.heading(col, text=col, command=lambda c=col: self.trier_colonne(c))  # Lier la fonction de triage
             self.tree.column(col, width=163)
-        self.tree.place(x=20, y=380) 
+        self.tree.place(x=20, y=380)
 
         # Bouton pour afficher les données dans la table
-        btn_afficher_donnees = tk.Button(self, text="Afficher les données", command=self.afficher_filtre)
+        btn_afficher_donnees = ttk.Button(self, text="Afficher les données", command=self.afficher_filtre)
         btn_afficher_donnees.place(x=20, y=340)
 
         # Bouton pour détecter les alertes
-        btn_detecter_alertes = tk.Button(self, text="Lancer la détection d'alertes", command=self.detecter_alertes)
+        btn_detecter_alertes = ttk.Button(self, text="Lancer la détection d'alertes", command=self.detecter_alertes)
         btn_detecter_alertes.place(x=600, y=250)
-    
-#------------------------------------Fonctions-------------------------------
+
+    #------------------------------------Fonctions-------------------------------
     def setup_api(self):
-        self.response_API = requests.get('http://10.213.0.198:5001/api/elements')
+        self.response_API = requests.get('http://10.202.0.57:5001/api/elements')
         if self.response_API.status_code == 200:
             self.data = self.response_API.text
             self.box_affichage_tests.insert(tk.END, "Connexion API REST bien établie.\n")  # Ajout de ce message dans le dashboard
@@ -149,7 +150,7 @@ class App(tk.Tk):
 
         self.parse_json = json.loads(self.data)
 
-        #  un dictionnaire pour stocker le nombre de trames par type
+        # dictionnaire pour stocker le nombre de trames par type
         type_count = {}
 
         for trame in self.parse_json:
