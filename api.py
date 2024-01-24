@@ -219,6 +219,26 @@ def obtenir_src_mac_plus_de_5_requetes_dhcp_discover_dans_10_secondes():
     except Exception as e:
         return jsonify({'message': f'Erreur : {str(e)}'}), 500
 
+# Route pour afficher les trames concernant deux adresses MAC spécifiques
+@app.route('/api/trame_combinee/<mac_source>/<mac_dest>', methods=['GET'])
+def obtenir_trames_entre_deux_mac(mac_source, mac_dest):
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+
+        # Exécuter une requête pour obtenir les trames entre deux adresses MAC spécifiques
+        cursor.execute("SELECT * FROM data WHERE Src_mac = ? AND Dst_mac = ?", (mac_source, mac_dest))
+        trames_entre_deux_mac = cursor.fetchall()
+
+        conn.close()
+
+        # Créer une liste de dictionnaires pour la réponse
+        result = [{'type_trame': trame[8], 'mac_source': trame[3], 'mac_destinataire': trame[4]} for trame in trames_entre_deux_mac]
+
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'message': f'Erreur : {str(e)}'}), 500
+
 # autre ajout de fonction possible selon les routes voulues par les clients
 
 if __name__ == '__main__':
