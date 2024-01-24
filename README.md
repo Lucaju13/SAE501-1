@@ -5,4 +5,4 @@
 ### SOMMAIRE
 - [x] [Synthése](CR/syntese.md)
 - [x] [Doc Technique](CR/doc-technique.md)
-- [x] [Compte Rendu](CR/cr-code.md)
+- [x] [Compte Rendu/Manuel d'utilisation](CR/cr-code.md)
