@@ -58,15 +58,10 @@ def obtenir_ip_destinataire():
 def obtenir_info_ip_dst(ip_dst):
     conn = connect_db()
     cursor = conn.cursor()
-    
     cursor.execute("SELECT * FROM data WHERE Dst_ip = ?", (ip_dst,))
-    
     ip_info = cursor.fetchall()
-    
     conn.close()
-    
     result = [{'type_trame': info[8], 'ip_source': info[1], 'ip_destianaire': info[2]} for info in ip_info]
-    
     return jsonify(result)
     
 # Routes adresses IP source
@@ -84,15 +79,10 @@ def obtenir_ip_dst():
 def obtenir_info_ip_src(ip_source):
     conn = connect_db()
     cursor = conn.cursor()
-    
     cursor.execute("SELECT * FROM data WHERE Src_ip = ?", (ip_source,))
-    
     ip_info = cursor.fetchall()
-    
     conn.close()
-    
     result = [{'type_trame': info[8], 'ip_source': info[1], 'ip_destianaire': info[2]} for info in ip_info]
-    
     return jsonify(result)
     
 # Route capture time
@@ -111,15 +101,10 @@ def obtenir_capture_time():
 def obtenir_type_trame():
     conn = connect_db()
     cursor = conn.cursor()
-    
     cursor.execute("SELECT Type_Trame, Src_ip, COUNT(*) FROM data GROUP BY Type_Trame, Src_ip")
-    
     type_trame_info = cursor.fetchall()
-    
     conn.close()
-    
     result = [{'type_trame': trame[0], 'ip_source': trame[1], 'nombre': trame[2]} for trame in type_trame_info]
-    
     return jsonify(result)
 
 # Type Trame par IP Source
@@ -127,15 +112,10 @@ def obtenir_type_trame():
 def obtenir_nombre_trame_par_ip_src():
     conn = connect_db()
     cursor = conn.cursor()
-    
     cursor.execute("SELECT Src_ip, COUNT(*) FROM data GROUP BY Src_ip")
-    
     nombre_trame_par_ip_src = cursor.fetchall()
-    
     conn.close()
-    
     result = [{'ip_source': ip[0], 'nombre': ip[1]} for ip in nombre_trame_par_ip_src]
-    
     return jsonify(result)
     
 # Type Trame par IP Destinataire
@@ -143,15 +123,10 @@ def obtenir_nombre_trame_par_ip_src():
 def obtenir_nombre_trame_par_ip_dst():
     conn = connect_db()
     cursor = conn.cursor()
-    
     cursor.execute("SELECT Dst_ip, COUNT(*) FROM data GROUP BY Dst_ip")
-    
     nombre_trame_par_ip_dst = cursor.fetchall()
-    
     conn.close()
-    
     result = [{'ip_destinataire': ip[0], 'nombre': ip[1]} for ip in nombre_trame_par_ip_dst]
-    
     return jsonify(result)
     
 if __name__ == '__main__':
