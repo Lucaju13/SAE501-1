@@ -5,7 +5,7 @@ Bienvenue dans l'application de surveillance réseau basée sur Flask. Cette app
 
 L'api est accessible sur les adresses :
 
-- http://localhost:5000/**"endpoints"** **(depuis le raspberry)**
+- http://localhost:5000/ **"endpoints"** **(depuis le raspberry)**
 - http://**"@IP raspberry"**:5000/**"endpoints"** **(depuis les autres machines sur le réseau)**
 ## Exécuter le Script de Capture
 
