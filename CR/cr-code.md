@@ -1,1 +1,1 @@
-# COMPTE RENDU DU CODE
+# Manuel d'utilisation
