@@ -153,6 +153,30 @@ def obtenir_nombre_requetes_dhcp_discover_par_mac_dernieres_10_secondes():
     except Exception as e:
         return jsonify({'message': f'Erreur : {str(e)}'}), 500
 
+# Route pour répertorier les Src_mac avec plus de 5 requêtes DHCP Discover dans les 10 dernières secondes
+@app.route('/api/alerte_discover', methods=['GET'])
+def obtenir_src_mac_plus_de_5_requetes_dhcp_discover_dans_10_secondes():
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+        
+        # Calculer le timestamp d'il y a 10 secondes
+        temps_actuel = time.time()
+        dix_secondes_avant = temps_actuel - 10
+        
+        # Exécuter une requête pour obtenir les Src_mac avec plus de 5 requêtes DHCP Discover dans les 10 dernières secondes
+        cursor.execute("SELECT Src_mac, COUNT(*) as count FROM data WHERE Type_Trame = 'Discover' AND Time > ? GROUP BY Src_mac HAVING count > 5", (dix_secondes_avant,))
+        src_mac_plus_de_5_requetes_dhcp_discover_dans_10_secondes = cursor.fetchall()
+        
+        conn.close()
+        
+        # Créer une liste de dictionnaires pour la réponse
+        result = [{'mac_source': mac[0], 'nombre_requetes_dhcp_discover': mac[1]} for mac in src_mac_plus_de_5_requetes_dhcp_discover_dans_10_secondes]
+        
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'message': f'Erreur : {str(e)}'}), 500
+
 # autre ajout de fonction possible selon les routes voulues par les clients
 
 if __name__ == '__main__':
