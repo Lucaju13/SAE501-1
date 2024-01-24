@@ -87,6 +87,8 @@ Ce code crée une combobox avec quatre options ("Request", "nak", "Offer", "ack"
 ![Alt text](../images/13.png)
 ![Alt text](../images/16.png)
 
+Ces lignes de code créent des boutons dans l'interface avec différentes fonctions associées. Ces fonctions incluent la fermeture de l'application, l'affichage de statistiques, le démarrage et l'arrêt du scan des paquets DHCP, l'affichage de données dans le tableau et la detenction d'alertes.
+
 
 
 
