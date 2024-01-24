@@ -129,6 +129,30 @@ def obtenir_nombre_trame_par_ip_dst():
     result = [{'ip_destinataire': ip[0], 'nombre': ip[1]} for ip in nombre_trame_par_ip_dst]
     return jsonify(result)
 
+# Route pour compter le nombre de requêtes DHCP de type Discover par Src_mac au cours des dernières 10 secondes
+@app.route('/api/request_srcmac', methods=['GET'])
+def obtenir_nombre_requetes_dhcp_discover_par_mac_dernieres_10_secondes():
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+        
+        # Calculer le timestamp d'il y a 10 secondes
+        temps_actuel = time.time()
+        dix_secondes_avant = temps_actuel - 10
+        
+        # Exécuter une requête pour compter les requêtes DHCP de type Discover par Src_mac au cours des dernières 10 secondes
+        cursor.execute("SELECT Src_mac, COUNT(*) FROM data WHERE Type_Trame = 'Discover' AND Time > ? GROUP BY Src_mac", (dix_secondes_avant,))
+        nombre_requetes_dhcp_discover_par_mac_dernieres_10_secondes = cursor.fetchall()
+        
+        conn.close()
+        
+        # Créer une liste de dictionnaires pour la réponse
+        result = [{'mac_source': mac[0], 'nombre': mac[1]} for mac in nombre_requetes_dhcp_discover_par_mac_dernieres_10_secondes]
+        
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'message': f'Erreur : {str(e)}'}), 500
+
 # autre ajout de fonction possible selon les routes voulues par les clients
 
 if __name__ == '__main__':
