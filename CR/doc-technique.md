@@ -85,6 +85,7 @@ Ce code crée une combobox avec quatre options ("Request", "nak", "Offer", "ack"
 
 - Boutons
 ![Alt text](../images/13.png)
+![Alt text](../images/16.png)
 
 
 
