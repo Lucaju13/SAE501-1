@@ -29,11 +29,7 @@ La répartition des rôles au sein de l'équipe est la suivante :
   - Conception de l'interface graphique.
   - Intégration de l'interface avec la base de données en Python.
   - Détection des alertes.
-  - Voici le [lien](https://github.com/Ndeye-codou-toure/SAE501/tree/Interface-Graphique) vers ma branche!
 
-- Étudiant 4 : Mme Toure
-  - Modularisation de l'application sous forme de plugins.
-  - Développement d'un plugin pour l'analyse DNS.
 
 En résumé, notre objectif est de développer un outil logiciel complet pour la gestion des baux DHCP dans un réseau local, en répondant aux exigences du client et en répartissant les tâches de manière efficace au sein de l'équipe.
 
