@@ -24,19 +24,27 @@ Ces méthodes affichent différents types d'informations dans les zones de texte
 Cette méthode permet d'afficher un message dans une boîte de texte spécifiée (box_affichage_tests) dans l'interface graphique. Elle commence par autoriser la modification de la boîte de texte, y insère le message à la fin suivi d'un saut de ligne, puis désactive à nouveau la possibilité de modification de la boîte de texte. J'ai utilisé cella pour afficher une message lorsque l'API est connecté ou pas, aussi lorsque le script de scan de paquets est lancé ainsi quand il s'est arreté.
 
 - Affichage de données + filtres
-![Alt text](../images/8.png)
+![Alt text](../images/28.png)
+![Alt text](../images/29.png)
 
-Cette méthode est utilisée pour filtrer et afficher des données JSON reçues àpartir de l'API Rest dans la structure d'interface utilisateur Tkinter (Treeview). Elle nettoie d'abord la structure, puis filtre les données en fonction de la valeur du filtre sélectionné, et enfin insère les données filtrées dans la structure d'interface utilisateur.
+Ces codes ils sont associées à la gestion d'un tableau (self.tree), généralement utilisé dans l'interface graphique pour afficher des données.
 
-1 - selected_filtre = self.filtre_2_var.get(): Il récupère la valeur actuelle du filtre sélectionné à partir d'une variable Tkinter (filtre_2_var).
+1 - ajouter_ligne_tableau(self, trame, rouge=False) :
 
-2 - self.parse_json = json.loads(self.data): Cette ligne sert à charger les données JSON stockées dans la variable self.data en utilisant la fonction loads du module json. Cela suppose que self.data contient une chaîne JSON valide.
+Cette méthode prend une trame en entrée et l'ajoute à un tableau (self.tree). Les valeurs de chaque colonne de la ligne sont extraites à partir des propriétés de la trame. Si l'argument optionnel rouge est vrai, une configuration spécifique est appliquée pour indiquer une alerte visuelle dans le tableau.
+values : Un tuple contenant les valeurs de chaque colonne de la ligne.
 
-3 - for row in self.tree.get_children(): self.tree.delete(row): Nettoie toutes les lignes actuellement présentes dans la structure d'interface utilisateur (Treeview) pour s'assurer qu'elle est vide avant d'afficher les données filtrées.
+tags : Un tuple vide si rouge est faux, sinon contient le tag "rouge_tableau" pour configurer une couleur différente pour la ligne d'alerte.
 
-4 - if selected_filtre: filtered_data = [trame for trame in self.parse_json if trame.get('Type_Trame', '') == selected_filtre]: Si un filtre est sélectionné, crée une liste appelée filtered_data qui contient uniquement les éléments de self.parse_json dont la clé 'Type_Trame' est égale à la valeur du filtre sélectionné. Sinon, filtered_data est égal à l'ensemble complet de données self.parse_json.
+La ligne est ensuite ajoutée au tableau avec les valeurs et les tags spécifiés.
 
-5 - for row in filtered_data: ...: Parcours chaque élément de filtered_data et extrait les valeurs associées aux clés spécifiques ('ID', 'Src_IP', etc.). Ces valeurs sont ensuite insérées dans la structure d'interface utilisateur (Treeview) à la fin de la liste, créant ainsi une nouvelle ligne avec les données filtrées.
+Une configuration est ajoutée pour spécifier que les lignes avec le tag "rouge_tableau" doivent avoir une couleur de fond rouge et une couleur de texte blanche.
+
+2 - afficher_filtre(self) :
+Cette méthode est liée à la gestion de filtres dans le tableau. Elle efface toutes les lignes existantes dans le tableau, puis filtre les données JSON en fonction de la valeur sélectionnée dans un filtre (selected_filtre). Si un filtre est appliqué, seules les trames correspondant au type de trame sélectionné sont conservées. Ensuite, chaque trame filtrée est ajoutée au tableau en utilisant la méthode ajouter_ligne_tableau avec rouge=False, ce qui signifie qu'aucune alerte n'est indiquée visuellement.
+
+*PS :* Le code assume que le tableau (self.tree) et d'autres éléments associés sont correctement définis dans le contexte global de la classe, car ces méthodes semblent faire référence à des attributs de l'instance de la classe.
+
 
 - Affichage de statistiques 
 ![Alt text](../images/9.png)
@@ -115,23 +123,11 @@ La méthode setup_api établie une connexion à une API REST via une requête HT
 6 - Désactive la possibilité de modifier le texte dans la boîte de texte.
 
 #### Méthode pour Détecter des Alertes
-![Alt text](../images/19.png)
+![Alt text](../images/27.png)
 
-La méthode **detecter_alertes** analyse des trames réseau stockées au format JSON, détecte des alertes en fonction de critères spécifiques sur les adresses IP de destination, et affiche les alertes détectées dans une boîte de texte dédiée. D'abord ce code: 
-1 - Efface le contenu actuel de la boîte de texte dédiée aux alertes.
+La méthode **detecter_alertes** analyse des trames réseau stockées au format JSON, détecte des alertes en fonction de critères spécifiques sur les adresses IP de destination, et affiche les alertes détectées dans une boîte de texte dédiée. 
 
-2 - Charge les données JSON en une structure Python.
-
-3 - Parcourt chaque trame dans les données JSON.
-
-4 - Vérifie si l'adresse IP de destination de la trame n'appartient pas à certains sous-réseaux autorisés.
-
-5 - Si une alerte est détectée, construit un message d'alerte.
-
-6 - Insère le message d'alerte dans la boîte de texte avec un style rouge.
-
-7 - Désactive la possibilité de modifier le texte dans la boîte de texte.
-
+Pour chaque trame, l'adresse IP de destination est extraite, et si elle ne correspond pas à certains sous-réseaux spécifiques, une alerte est déclenchée. L'alerte est affichée dans une boîte d'affichage des erreurs en rouge, et une indication visuelle est ajoutée dans un tableau. Les détails des alertes sont également ajoutés à la boîte d'affichage des erreurs, avec une configuration de texte en rouge. En cas d'adresse IP autorisée, une ligne normale est ajoutée dans le tableau. La configuration finale spécifie que le texte avec le tag "rouge" doit avoir une couleur de texte rouge.
 Ici le code est focalisé sur la detenction des alertes de paquets DHCP capturés dans des salles 202 et 203.
 
 #### Méthode pour Trier les Colonnes du Tableau
