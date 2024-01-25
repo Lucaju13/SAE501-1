@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_sslify import SSLify
 import sqlite3
 import subprocess
 import time
 
 app = Flask(__name__)
+sslify = SSLify(app)
 
 # Fonction pour se connecter à la base de données SQLite
 def connect_db():
