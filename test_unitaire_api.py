@@ -191,6 +191,15 @@ class TestFlaskApp(unittest.TestCase):
         data = json.loads(response.get_data(as_text=True))
         self.assertIsInstance(data, list)
         self.print_test_end("test_obtenir_nombre_requetes_dhcp_discover_par_mac_dernieres_10_secondes")
+       
+    def test_obtenir_src_mac_plus_de_5_requetes_dhcp_discover_dans_10_secondes(self):
+        self.print_test_start("test_obtenir_src_mac_plus_de_5_requetes_dhcp_discover_dans_10_secondes")
+        response = self.app.get('/api/alerte_discover')
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.get_data(as_text=True))
+        self.assertIsInstance(data, list)
+        self.print_test_end("test_obtenir_src_mac_plus_de_5_requetes_dhcp_discover_dans_10_secondes")
+
 
 
 if __name__ == '__main__':
