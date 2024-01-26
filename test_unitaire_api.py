@@ -200,7 +200,14 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIsInstance(data, list)
         self.print_test_end("test_obtenir_src_mac_plus_de_5_requetes_dhcp_discover_dans_10_secondes")
 
-
+     def test_obtenir_trames_entre_deux_mac(self):
+        self.print_test_start("test_obtenir_trames_entre_deux_mac")
+        response = self.app.get('/api/trame_combinee/00:11:22:33:44:55/AA:BB:CC:DD:EE:FF')
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.get_data(as_text=True))
+        self.assertIsInstance(data, list)
+        # Ajoutez des assertions supplémentaires selon la structure de vos données
+        self.print_test_end("test_obtenir_trames_entre_deux_mac")
 
 if __name__ == '__main__':
     unittest.main()
