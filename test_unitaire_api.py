@@ -151,6 +151,15 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIsInstance(response.json(), list)
         self.print_test_end("test_obtenir_info_ip_src_route")
 
+    def test_obtenir_mac_destinataire(self):
+        self.print_test_start("test_obtenir_mac_destinataire")
+        response = self.app.get('/api/dst_mac')
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.get_data(as_text=True))
+        self.assertIsInstance(data, list)
+        # Ajoutez des assertions supplémentaires selon la structure de vos données
+        self.print_test_end("test_obtenir_mac_destinataire")
+
 
 if __name__ == '__main__':
     unittest.main()
