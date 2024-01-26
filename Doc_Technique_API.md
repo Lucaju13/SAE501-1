@@ -1,41 +1,94 @@
-# Documentation Technique API
-## Structure du Code
+# Documentation Technique de l'API REST Flask
 
-## Importation des Modules
-- Flask: Framework web.
-- request: Gestion des requêtes HTTP.
-- jsonify: Conversion des données en format JSON.
-- sqlite3: Interaction avec la base de données SQLite.
-- subprocess: Exécution de scripts Python en tant que processus séparés.
+## Introduction
+Cette documentation technique fournit des informations détaillées sur l'API REST Flask développée en Python. L'API permet d'interagir avec une base de données SQLite, d'exécuter un script, et de fournir diverses informations liées aux trames réseau capturées.
 
-## Configuration de l'Application Flask
-- Initialisation d'une instance Flask.
+## Fonctionnement Général
+L'API présente plusieurs endpoints permettant de récupérer des informations à partir de la base de données SQLite, d'exécuter un script externe, et d'effectuer des opérations de requêtes.
 
-## Fonction de Connexion à la Base de Données SQLite
-- Fonction `connect_db()` qui établit une connexion à la base de données SQLite 'sae501.db'.
+## Prérequis
+- **Python 3.x**: L'API est développée en Python 3.
+- **Flask**: Le framework Flask est utilisé pour créer l'API REST.
+- **Flask-SSLify**: Cette extension assure que toutes les connexions sont redirigées vers HTTPS.
+- **SQLite3**: La base de données utilisée par l'API est SQLite3.
+- **Subprocess**: La bibliothèque Subprocess est utilisée pour exécuter des scripts externes.
 
-## Exécution d'un Script avec subprocess
-- Route `/api/run_script` (GET) qui exécute le script `script_sniffer.py` avec subprocess.
+## Structure du Projet
+- **script_sniffer.py**: Effectue une capture de trame en direct.
+- **test_unitaire_api.py**: Vérifie le bon fonctionnement de l'API et ne lance pas l’API si un des tests n’est pas bon.
 
-## Routes pour Obtenir des Éléments depuis la Base de Données
-- `/api/elements` (GET) : Récupère tous les éléments.
-- `/api/elements/<element_id>` (GET) : Récupère un élément par son ID.
+## Configuration
+L'API est configurée pour fonctionner avec une base de données SQLite nommée `sae501.db`.
 
-## Routes pour les Adresses IP Destinataires
-- `/api/dst_ip` (GET) : Récupère toutes les adresses IP destinataires.
-- `/api/dst_ip/<ip_dst>` (GET) : Récupère des informations spécifiques sur une adresse IP destinataire.
+## Endpoints de l'API
 
-## Routes pour les Adresses IP Source
-- `/api/src_ip` (GET) : Récupère toutes les adresses IP source.
-- `/api/src_ip/<ip_source>` (GET) : Récupère des informations spécifiques sur une adresse IP source.
+**/api/run_script (GET)**
+   - **Description**: Exécute le script externe `script_sniffer.py`.
+   - **Réponse**: Retourne un message indiquant si le script a été exécuté avec succès ou s'il y a eu une erreur.
 
-## Routes pour le Temps de Capture et le Type de Trame
-- `/api/capture_time` (GET) : Récupère les moments de capture.
-- `/api/type_trame` (GET) : Récupère les types de trame et le nombre associé, regroupés par adresse IP source.
+**/api/elements (GET)**
+   - **Description**: Récupère tous les éléments de la table `data` de la base de données.
+   - **Réponse**: Retourne une liste d'éléments sous forme de dictionnaires.
 
-## Routes pour le Nombre de Trames par Adresse IP Source et Destination
-- `/api/nombre_trame_par_ip_src` (GET) : Récupère le nombre de trames capturées regroupées par adresse IP source.
-- `/api/nombre_trame_par_ip_dst` (GET) : Récupère le nombre de trames capturées regroupées par adresse IP destinataire.
+**/api/elements/<int:element_id> (GET)**
+   - **Description**: Récupère un élément spécifique par son ID dans la table `data`.
+   - **Réponse**: Retourne un dictionnaire représentant l'élément trouvé ou un message si l'élément n'est pas trouvé.
 
-## Exécution de l'Application Flask
-- `if __name__ == '__main__': app.run(host='0.0.0.0', port=5000, debug=False)`
+**/api/dst_ip (GET)**
+   - **Description**: Récupère toutes les adresses IP de destination uniques de la table `data`.
+   - **Réponse**: Retourne une liste d'adresses IP de destination.
+
+**/api/dst_ip/<ip_dst> (GET)**
+   - **Description**: Récupère des informations sur les trames associées à une adresse IP de destination spécifique.
+   - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
+
+**/api/src_ip (GET)**
+   - **Description**: Récupère toutes les adresses IP source uniques de la table `data`.
+   - **Réponse**: Retourne une liste d'adresses IP source.
+
+**/api/src_ip/<ip_source> (GET)**
+   - **Description**: Récupère des informations sur les trames associées à une adresse IP source spécifique.
+   - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
+
+**/api/capture_time (GET)**
+   - **Description**: Récupère toutes les heures de capture de la table `data`.
+   - **Réponse**: Retourne une liste d'heures de capture.
+
+**/api/type_trame (GET)**
+   - **Description**: Récupère le nombre de trames groupées par type et adresse IP source.
+   - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur le type de trame, l'adresse IP source et le nombre de trames.
+
+**/api/nombre_trame_par_ip_src (GET)**
+   - **Description**: Récupère le nombre de trames groupées par adresse IP source.
+   - **Réponse**: Retourne une liste de dictionnaires représentant l'adresse IP source et le nombre de trames.
+
+**/api/nombre_trame_par_ip_dst (GET)**
+   - **Description**: Récupère le nombre de trames groupées par adresse IP destination.
+   - **Réponse**: Retourne une liste de dictionnaires représentant l'adresse IP destination et le nombre de trames.
+
+**/api/dst_mac (GET)**
+   - **Description**: Récupère toutes les adresses MAC de destination uniques de la table `data`.
+   - **Réponse**: Retourne une liste d'adresses MAC de destination.
+
+**/api/dst_mac/<mac_dest> (GET)**
+   - **Description**: Récupère des informations sur les trames associées à une adresse MAC de destination spécifique.
+   - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
+
+**/api/src_mac (GET)**
+   - **Description**: Récupère toutes les adresses MAC source uniques de la table `data`.
+   - **Réponse**: Retourne une liste d'adresses MAC source.
+
+**/api/src_mac/<mac_src> (GET)**
+   - **Description**: Récupère des informations sur les trames associées à une adresse MAC source spécifique.
+   - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
+
+**/api/request_srcmac (GET)**
+   - **Description**: Récupère le nombre de requêtes DHCP Discover par adresse MAC source au cours des dernières 10 secondes.
+   - **Réponse**: Retourne une liste de dictionnaires représentant l'adresse MAC source et le nombre de requêtes.
+
+**/api/alerte_discover (GET)**
+    - **Description**: Récupère les adresses MAC source avec plus de 5 requêtes DHCP Discover dans les 10 dernières secondes.
+    - **Réponse**: Retourne une liste de dictionnaires représentant l'
+
+## Exécution de l'API
+L'API peut être exécutée en exécutant le script principal `api.py` avec la commande `python3 api.py`. L'API sera accessible sur [http://localhost:5000/](http://localhost:5000/) depuis la machine hôte et depuis les autres machines sur [http://<IP_machine_hôte>:5000/](http://<IP_machine_hôte>:5000/).
