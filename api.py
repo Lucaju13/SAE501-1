@@ -1,7 +1,16 @@
+import subprocess
+
+# Exécutez le script de test unitaire
+test_result = subprocess.run(['python3', 'test_unitaire_api.py'], capture_output=True, text=True)
+
+# Vérifiez le code de sortie du script de test
+if test_result.returncode != 0:
+    print("Les tests unitaires ont échoué. L'API ne sera pas lancée.")
+    exit()
+
 from flask import Flask, request, jsonify
 from flask_sslify import SSLify
 import sqlite3
-import subprocess
 import time
 
 app = Flask(__name__)
