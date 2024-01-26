@@ -59,8 +59,8 @@ L'API est configurée pour fonctionner avec une base de données SQLite nommée 
    - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur le type de trame, l'adresse IP source et le nombre de trames.
 
 10. **/api/nombre_trame_par_ip_src (GET)**
-    - **Description**: Récupère le nombre de trames groupées par adresse IP source.
-    - **Réponse**: Retourne une liste de dictionnaires représentant l'adresse IP source et le nombre de trames.
+- **Description**: Récupère le nombre de trames groupées par adresse IP source.
+- **Réponse**: Retourne une liste de dictionnaires représentant l'adresse IP source et le nombre de trames.
 
 11. **/api/nombre_trame_par_ip_dst (GET)**
    - **Description**: Récupère le nombre de trames groupées par adresse IP destination.
