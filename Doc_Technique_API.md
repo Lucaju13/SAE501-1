@@ -93,6 +93,3 @@ L'API est configurée pour fonctionner avec une base de données SQLite nommée 
 ### 18. **/api/trame_combinee/<mac_source>/<mac_dest> (GET)**
 - **Description**: Récupère les trames entre deux adresses MAC spécifiques.
 - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
-
-## Exécution de l'API
-L'API peut être exécutée en exécutant le script principal `api.py` avec la commande `sudo python3 api.py`. L'API sera accessible sur [http://localhost:5000/](http://localhost:5000/) depuis la machine hôte et depuis les autres machines sur [http://<IP_machine_hôte>:5000/](http://<IP_machine_hôte>:5000/).
