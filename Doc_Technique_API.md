@@ -22,71 +22,71 @@ L'API est configurée pour fonctionner avec une base de données SQLite nommée 
 
 ## Endpoints de l'API
 
-**/api/run_script (GET)**
+### **/api/run_script (GET)**
    - **Description**: Exécute le script externe `script_sniffer.py`.
    - **Réponse**: Retourne un message indiquant si le script a été exécuté avec succès ou s'il y a eu une erreur.
 
-**/api/elements (GET)**
+### **/api/elements (GET)**
    - **Description**: Récupère tous les éléments de la table `data` de la base de données.
    - **Réponse**: Retourne une liste d'éléments sous forme de dictionnaires.
 
-**/api/elements/<int:element_id> (GET)**
+### **/api/elements/<int:element_id> (GET)**
    - **Description**: Récupère un élément spécifique par son ID dans la table `data`.
    - **Réponse**: Retourne un dictionnaire représentant l'élément trouvé ou un message si l'élément n'est pas trouvé.
 
-**/api/dst_ip (GET)**
+### **/api/dst_ip (GET)**
    - **Description**: Récupère toutes les adresses IP de destination uniques de la table `data`.
    - **Réponse**: Retourne une liste d'adresses IP de destination.
 
-**/api/dst_ip/<ip_dst> (GET)**
+### **/api/dst_ip/<ip_dst> (GET)**
    - **Description**: Récupère des informations sur les trames associées à une adresse IP de destination spécifique.
    - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
 
-**/api/src_ip (GET)**
+### **/api/src_ip (GET)**
    - **Description**: Récupère toutes les adresses IP source uniques de la table `data`.
    - **Réponse**: Retourne une liste d'adresses IP source.
 
-**/api/src_ip/<ip_source> (GET)**
+### **/api/src_ip/<ip_source> (GET)**
    - **Description**: Récupère des informations sur les trames associées à une adresse IP source spécifique.
    - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
 
-**/api/capture_time (GET)**
+### **/api/capture_time (GET)**
    - **Description**: Récupère toutes les heures de capture de la table `data`.
    - **Réponse**: Retourne une liste d'heures de capture.
 
-**/api/type_trame (GET)**
+### **/api/type_trame (GET)**
    - **Description**: Récupère le nombre de trames groupées par type et adresse IP source.
    - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur le type de trame, l'adresse IP source et le nombre de trames.
 
-**/api/nombre_trame_par_ip_src (GET)**
+### **/api/nombre_trame_par_ip_src (GET)**
    - **Description**: Récupère le nombre de trames groupées par adresse IP source.
    - **Réponse**: Retourne une liste de dictionnaires représentant l'adresse IP source et le nombre de trames.
 
-**/api/nombre_trame_par_ip_dst (GET)**
+### **/api/nombre_trame_par_ip_dst (GET)**
    - **Description**: Récupère le nombre de trames groupées par adresse IP destination.
    - **Réponse**: Retourne une liste de dictionnaires représentant l'adresse IP destination et le nombre de trames.
 
-**/api/dst_mac (GET)**
+### **/api/dst_mac (GET)**
    - **Description**: Récupère toutes les adresses MAC de destination uniques de la table `data`.
    - **Réponse**: Retourne une liste d'adresses MAC de destination.
 
-**/api/dst_mac/<mac_dest> (GET)**
+### **/api/dst_mac/<mac_dest> (GET)**
    - **Description**: Récupère des informations sur les trames associées à une adresse MAC de destination spécifique.
    - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
 
-**/api/src_mac (GET)**
+### **/api/src_mac (GET)**
    - **Description**: Récupère toutes les adresses MAC source uniques de la table `data`.
    - **Réponse**: Retourne une liste d'adresses MAC source.
 
-**/api/src_mac/<mac_src> (GET)**
+### **/api/src_mac/<mac_src> (GET)**
    - **Description**: Récupère des informations sur les trames associées à une adresse MAC source spécifique.
    - **Réponse**: Retourne une liste de dictionnaires représentant les informations sur les trames.
 
-**/api/request_srcmac (GET)**
+### **/api/request_srcmac (GET)**
    - **Description**: Récupère le nombre de requêtes DHCP Discover par adresse MAC source au cours des dernières 10 secondes.
    - **Réponse**: Retourne une liste de dictionnaires représentant l'adresse MAC source et le nombre de requêtes.
 
-**/api/alerte_discover (GET)**
+### **/api/alerte_discover (GET)**
     - **Description**: Récupère les adresses MAC source avec plus de 5 requêtes DHCP Discover dans les 10 dernières secondes.
     - **Réponse**: Retourne une liste de dictionnaires représentant l'
 
