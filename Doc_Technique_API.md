@@ -9,7 +9,7 @@ L'API présente plusieurs endpoints permettant de récupérer des informations �
 ## Prérequis
 - **Python 3.x**: L'API est développée en Python 3.
 - **Flask**: Le framework Flask est utilisé pour créer l'API REST.
-- **Flask-SSLify**: Cette extension assure que toutes les connexions sont redirigées vers HTTPS.
+- **Flask-SSLify**: Cette extension assure que toutes les connexions sont redirigées vers HTTPS. **--> pas fonctionnel requêtes en HTTP**
 - **SQLite3**: La base de données utilisée par l'API est SQLite3.
 - **Subprocess**: La bibliothèque Subprocess est utilisée pour exécuter des scripts externes.
 
