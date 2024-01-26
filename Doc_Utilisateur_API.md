@@ -11,6 +11,9 @@ L'API est accessible sur les adresses :
 - http://localhost:5000/ "endpoints" (depuis le Raspberry)
 - http://@IP_raspberry:5000/"endpoints" (depuis les autres machines sur le réseau)
 
+![Alt_text](adresses.png)
+
+
 **IMPORTANT** - Vérifiez que les fichiers **"script_sniffer.py"**, **"test_unitaire_api.py"**, **"sae501.db"**, et **"api.py"** soient dans le même dossier.
 
 
