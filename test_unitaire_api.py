@@ -176,6 +176,14 @@ class TestFlaskApp(unittest.TestCase):
         self.assertIsInstance(data, list)
         self.print_test_end("test_obtenir_mac_source")
 
+    def test_obtenir_info_mac_src(self):
+        self.print_test_start("test_obtenir_info_mac_src")
+        response = self.app.get('/api/src_mac/AA:BB:CC:DD:EE:FF')
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.get_data(as_text=True))
+        self.assertIsInstance(data, list)
+        self.print_test_end("test_obtenir_info_mac_src")
+
 
 if __name__ == '__main__':
     unittest.main()
