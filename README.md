@@ -21,9 +21,9 @@ La répartition des rôles au sein de l'équipe est la suivante :
   - Mise en place du déploiement.
 
 - Étudiant 2 : Mr Guilhem
-  - Mise en place de l'API REST.
-  - Installation de la base de données.
-  - Réalisation des tests unitaires.
+  - Mise en place de l'API REST. [ICI](https://github.com/Lucaju13/SAE501-1/tree/API-Rest)
+  - Installation de la base de données. [ICI](https://github.com/Lucaju13/SAE501-1/tree/Database-SQLite)
+  - Réalisation des tests unitaires. [ICI](https://github.com/Lucaju13/SAE501-1/tree/test-unitaire)
 
 - Étudiant 3 : Mr Lucas
   - Conception de l'interface graphique.
