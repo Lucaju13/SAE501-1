@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+import datetime
 import requests
 import json
 from script_sniffer import main as sniff_packets
@@ -9,7 +10,6 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Projet Logiciel")
-        self.geometry("1500x630")
         self.create_widgets()
         self.setup_api()
         self.configure(bg="#B0E0E6")
@@ -37,62 +37,92 @@ class App(tk.Tk):
     def create_widgets(self):
         # Box d'affichage (Dashboard)
         test_unitaires = tk.Label(self, text="Dashboard")
-        test_unitaires.pack(anchor="w")
-        self.box_affichage_tests = tk.Text(self, bg="#D3D3D3",height=10, width=50)
-        self.box_affichage_tests.pack(anchor="w")
+        test_unitaires.grid(row=0, column=0, sticky="w")
+        self.box_affichage_tests = tk.Text(self, bg="#D3D3D3", height=10, width=50)
+        self.box_affichage_tests.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)  # Utilisation de sticky pour étirer dans toutes les directions
+        self.box_affichage_tests.grid_columnconfigure(0, weight=1)  # Permet à la colonne de s'étirer
 
         # Box d'affichage des erreurs
-        erreurs = tk.Label(self,text="Detection d'alertes")
-        erreurs.place(x=950, y=1)
-        self.box_affichage_erreurs = tk.Text(self,bg="#D3D3D3", height=10, width=123)
-        self.box_affichage_erreurs.place(x=500, y=20)
+        erreurs = tk.Label(self, text="Detection d'alertes")
+        erreurs.grid(row=0, column=1, padx=10, pady=10)
+        self.box_affichage_erreurs = tk.Text(self, bg="#D3D3D3", height=10, width=123)
+        self.box_affichage_erreurs.grid(row=1, column=1, sticky="nsew", padx=10, pady=10)
+        self.box_affichage_erreurs.grid_columnconfigure(0, weight=1)  # Permet à la colonne de s'étirer
 
         # Ajout des combobox
-        filtre_label = ttk.Label(self, text="Filtres :")
-        filtre_label.place(x=500, y=350)
+        filtre_label = ttk.Label(self, text="Filtres:")
+        filtre_label.grid(row=5, column=0, padx=10, pady=1, sticky="w")
 
         # Création de la combobox pour le filtre 1
         self.filtre_2_var = tk.StringVar()
         self.filtre_2_combobox = ttk.Combobox(self, textvariable=self.filtre_2_var, values=["Request", "nak", "Offer", "ack"])
-        self.filtre_2_combobox.place(x=600, y=350)
+        self.filtre_2_combobox.grid(row=5, column=0, padx=100, pady=10, sticky="w")
         self.filtre_2_combobox.bind("<<ComboboxSelected>>", lambda event: self.afficher_filtre())
+
+        # Création de la combobox pour le filtre de période
+        periode_label = ttk.Label(self, text="Période :")
+        periode_label.grid(row=5, column=1, padx=5, pady=10, sticky="w")
+
+        self.periode_var = tk.StringVar()
+        self.periode_combobox = ttk.Combobox(self, textvariable=self.periode_var,
+                                            values=["10 minutes", "30 minutes", "1 heure", "5 heures",
+                                                    "12 heures", "24 heures", "1 semaine", "1 mois"])
+        self.periode_combobox.grid(row=5, column=1, padx=100, pady=10, sticky="w")
+        self.periode_combobox.bind("<<ComboboxSelected>>", lambda event: self.afficher_filtre())
+
+
 
         # Boutons
         btn_sortir = ttk.Button(self, text="Sortir du programme", command=self.quit)
-        btn_sortir.place(x=1200, y=250)
+        btn_sortir.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
 
-        # Ajout du bouton pour afficher les statistiques
         btn_afficher_statistiques = ttk.Button(self, text="Stats", command=self.afficher_statistiques)
-        btn_afficher_statistiques.place(x=20, y=250)
+        btn_afficher_statistiques.grid(row=2, column=1, padx=10, pady=10, sticky="ew")
 
-        # Bouton lancer scan DHCP
         btn_scan_packets = ttk.Button(self, text="Scan des paquets", command=self.start_sniffing_threaded)
-        btn_scan_packets.place(x=20, y=290)
+        btn_scan_packets.grid(row=3, column=0, padx=10, pady=10, sticky="ew")
 
-        # Bouton stop scan DHCP
         btn_stop_sniffing = ttk.Button(self, text="Arrêter le sniffing", command=self.stop_sniffing)
-        btn_stop_sniffing.place(x=250, y=290)
+        btn_stop_sniffing.grid(row=3, column=1, padx=10, pady=10, sticky="ew")
+
+        btn_afficher_donnees = ttk.Button(self, text="Afficher les données", command=self.afficher_filtre)
+        btn_afficher_donnees.grid(row=4, column=0, padx=10, pady=10, sticky="ew")
+
+        btn_detecter_alertes = ttk.Button(self, text="Lancer la détection d'alertes", command=self.detecter_alertes)
+        btn_detecter_alertes.grid(row=4, column=1, padx=10, pady=10, sticky="ew")
 
         # Création du tableau
         columns = ('ID', 'IP SRC', 'IP DST', 'MAC SRC', 'MAC DST', 'PACKET ID', 'TIMESTAMP', 'DATE', 'TYPE')
         self.tree = ttk.Treeview(self, columns=columns, show='headings')
-
         self.tree.tag_configure("background_column", background="#D3D3D3")
 
-        self.tree.place(x=20, y=380) 
-
         for col in columns:
-            self.tree.heading(col, text=col, command=lambda c=col: self.trier_colonne(c))  # Lier la fonction de triage
+            self.tree.heading(col, text=col, command=lambda c=col: self.trier_colonne(c))
             self.tree.column(col, width=163)
-        self.tree.place(x=20, y=380)
+        self.tree.grid(row=8, column=0, columnspan=3, pady=10, sticky="nsew")
 
-        # Bouton pour afficher les données dans la table
-        btn_afficher_donnees = ttk.Button(self, text="Afficher les données", command=self.afficher_filtre)
-        btn_afficher_donnees.place(x=20, y=340)
+        # Création des barres de défilement
+        scrollbar_y = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
+        scrollbar_y.grid(row=8, column=3, sticky="ns")
 
-        # Bouton pour détecter les alertes
-        btn_detecter_alertes = ttk.Button(self, text="Lancer la détection d'alertes", command=self.detecter_alertes)
-        btn_detecter_alertes.place(x=600, y=250)
+        scrollbar_x = ttk.Scrollbar(self, orient="horizontal", command=self.tree.xview)
+        scrollbar_x.grid(row=9, column=0, columnspan=3, sticky="ew")
+
+        # Lier les barres de défilement au Treeview
+        self.tree.configure(yscrollcommand=scrollbar_y.set, xscrollcommand=scrollbar_x.set)
+
+        self.grid_rowconfigure(1, weight=1)  # La ligne de l'affichage du tableau peut être étirée
+        self.grid_columnconfigure(0, weight=1)  # La colonne de l'affichage du tableau peut être étirée
+
+        # Création des barres de défilement
+        scrollbar_y = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
+        scrollbar_y.grid(row=8, column=3, sticky="ns")
+
+        scrollbar_x = ttk.Scrollbar(self, orient="horizontal", command=self.tree.xview)
+        scrollbar_x.grid(row=9, column=0, columnspan=3, sticky="ew")
+
+        # Lier les barres de défilement au Treeview
+        self.tree.configure(yscrollcommand=scrollbar_y.set, xscrollcommand=scrollbar_x.set)
 
     #------------------------------------Fonctions-------------------------------
     def setup_api(self):
@@ -117,10 +147,10 @@ class App(tk.Tk):
                 self.box_affichage_erreurs.insert(tk.END, message + "\n", "rouge")  # Balisez le message avec "rouge"
                 self.box_affichage_erreurs.config(state="disabled")
 
-                # Indication visuelle dans le tableau
+                # indication visuelle dans le tableau
                 self.ajouter_ligne_tableau(trame, rouge=True)
             else:
-                # Ligne normale dans le tableau
+                # ligne normale dans le tableau
                 self.ajouter_ligne_tableau(trame, rouge=False)
 
         # Configuration de l'étiquette pour la couleur rouge
@@ -138,7 +168,7 @@ class App(tk.Tk):
             trame.get('Heure', ''),
             trame.get('Type_Trame', '')
         )
-        # configuration de couleur différente pour les lignes d'alerte dans le tableau
+        # Configuration de couleur différente pour les lignes d'alerte dans le tableau
         tags = () if not rouge else ("rouge_tableau",)
         self.tree.insert('', 'end', values=values, tags=tags)
 
@@ -147,6 +177,7 @@ class App(tk.Tk):
 
     def afficher_filtre(self):
         selected_filtre = self.filtre_2_var.get()
+        selected_periode = self.periode_var.get()
         self.parse_json = json.loads(self.data)
 
         for row in self.tree.get_children():
@@ -157,9 +188,32 @@ class App(tk.Tk):
         else:
             filtered_data = self.parse_json
 
+        if selected_periode:
+            now = datetime.datetime.now()
+            if selected_periode == "10 minutes":
+                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 10)]
+            elif selected_periode == "30 minutes":
+                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 30)]
+            elif selected_periode == "1 heure":
+                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 60)]
+            elif selected_periode == "5 heures":
+                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 300)]
+            elif selected_periode == "12 heures":
+                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 720)]
+            elif selected_periode == "24 heures":
+                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 1440)]
+            elif selected_periode == "1 semaine":
+                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 10080)]
+            elif selected_periode == "1 mois":
+                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 43200)]
+
         for trame in filtered_data:
             self.ajouter_ligne_tableau(trame, rouge=False)
 
+    def est_dans_periode(self, trame, now, minutes):
+        timestamp = datetime.datetime.strptime(trame.get('Time', ''), "%Y-%m-%d %H:%M:%S")
+        diff = now - timestamp
+        return diff.total_seconds() / 60 <= minutes
     def afficher_statistiques(self):
         self.box_affichage_tests.config(state="normal")
         self.box_affichage_tests.delete(1.0, tk.END)
@@ -203,4 +257,8 @@ class App(tk.Tk):
                  
 if __name__ == "__main__":
     app = App()
+    app.geometry("800x600")  # Dimensions initiales
+    app.minsize(500, 400)    # Dimensions minimales
+    app.grid_rowconfigure(1, weight=1)  # Permet à la ligne principale de s'étirer
+    app.grid_columnconfigure(0, weight=1)  # Permet à la colonne principale de s'étirer
     app.mainloop()
