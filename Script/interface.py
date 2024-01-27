@@ -114,16 +114,6 @@ class App(tk.Tk):
         self.grid_rowconfigure(1, weight=1)  # La ligne de l'affichage du tableau peut être étirée
         self.grid_columnconfigure(0, weight=1)  # La colonne de l'affichage du tableau peut être étirée
 
-        # Création des barres de défilement
-        scrollbar_y = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
-        scrollbar_y.grid(row=8, column=3, sticky="ns")
-
-        scrollbar_x = ttk.Scrollbar(self, orient="horizontal", command=self.tree.xview)
-        scrollbar_x.grid(row=9, column=0, columnspan=3, sticky="ew")
-
-        # Lier les barres de défilement au Treeview
-        self.tree.configure(yscrollcommand=scrollbar_y.set, xscrollcommand=scrollbar_x.set)
-
     #------------------------------------Fonctions-------------------------------
     def setup_api(self):
         self.response_API = requests.get('http://localhost:5000/api/elements')
