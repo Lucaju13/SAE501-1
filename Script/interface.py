@@ -201,7 +201,7 @@ class App(tk.Tk):
             self.ajouter_ligne_tableau(trame, rouge=False)
 
     def est_dans_periode(self, trame, now, minutes):
-        timestamp = datetime.datetime.strptime(trame.get('Heure', ''), "%Y-%m-%d %H:%M:%S")
+        timestamp = datetime.datetime.strptime(trame.get('Time', ''), "%Y-%m-%d %H:%M:%S")
         diff = now - timestamp
         return diff.total_seconds() / 60 <= minutes
     def afficher_statistiques(self):
