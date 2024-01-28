@@ -59,17 +59,15 @@ class App(tk.Tk):
         self.filtre_2_combobox.grid(row=5, column=0, padx=100, pady=10, sticky="w")
         self.filtre_2_combobox.bind("<<ComboboxSelected>>", lambda event: self.afficher_filtre())
 
-        # Création de la combobox pour le filtre de période
+         # Création de la combobox pour le filtre de période
         periode_label = ttk.Label(self, text="Période :")
         periode_label.grid(row=5, column=1, padx=5, pady=10, sticky="w")
 
         self.periode_var = tk.StringVar()
         self.periode_combobox = ttk.Combobox(self, textvariable=self.periode_var,
-                                            values=["10 minutes", "30 minutes", "1 heure", "5 heures",
-                                                    "12 heures", "24 heures", "1 semaine", "1 mois"])
+                                            values=["Tout", "24 heures", "5 jours", "1 semaine", "2 semaines", "1 mois", "1 an"])
         self.periode_combobox.grid(row=5, column=1, padx=100, pady=10, sticky="w")
         self.periode_combobox.bind("<<ComboboxSelected>>", lambda event: self.afficher_filtre())
-
 
 
         # Boutons
@@ -178,32 +176,50 @@ class App(tk.Tk):
         else:
             filtered_data = self.parse_json
 
-        if selected_periode:
+        if selected_periode and selected_periode != "Tout":
             now = datetime.datetime.now()
-            if selected_periode == "10 minutes":
-                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 10)]
-            elif selected_periode == "30 minutes":
-                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 30)]
-            elif selected_periode == "1 heure":
-                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 60)]
-            elif selected_periode == "5 heures":
-                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 300)]
-            elif selected_periode == "12 heures":
-                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 720)]
-            elif selected_periode == "24 heures":
-                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 1440)]
-            elif selected_periode == "1 semaine":
-                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 10080)]
-            elif selected_periode == "1 mois":
-                filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, 43200)]
+            filtered_data = [trame for trame in filtered_data if self.est_dans_periode(trame, now, selected_periode)]
 
         for trame in filtered_data:
             self.ajouter_ligne_tableau(trame, rouge=False)
 
-    def est_dans_periode(self, trame, now, minutes):
-        timestamp = datetime.datetime.strptime(trame.get('Time', ''), "%Y-%m-%d %H:%M:%S")
-        diff = now - timestamp
-        return diff.total_seconds() / 60 <= minutes
+
+
+
+    def est_dans_periode(self, trame, now, periode):
+        heure_str = trame.get('Heure', '')
+
+        if heure_str:
+            # Extraire la partie de la chaîne au format "%Y-%m-%d %H:%M:%S"
+            formatted_heure_str = heure_str.split('.')[0]
+
+            try:
+                timestamp = datetime.datetime.strptime(formatted_heure_str, "%Y-%m-%d %H:%M:%S")
+            except ValueError:
+                # Gérer le cas où le format n'est pas conforme, éventuellement logguer ou afficher un message
+                return False
+
+            diff = now - timestamp
+
+            if periode == "24 heures":
+                return diff.total_seconds() / 3600 <= 24
+            elif periode == "5 jours":
+                return diff.total_seconds() / (3600 * 24) <= 5
+            elif periode == "1 semaine":
+                return diff.total_seconds() / (3600 * 24) <= 7
+            elif periode == "2 semaines":
+                return diff.total_seconds() / (3600 * 24) <= 14
+            elif periode == "1 mois":
+                return diff.total_seconds() / (3600 * 24 * 30) <= 1
+            elif periode == "1 an":
+                return diff.total_seconds() / (3600 * 24 * 365) <= 1
+        else:
+            return False
+
+
+
+        
+    
     def afficher_statistiques(self):
         self.box_affichage_tests.config(state="normal")
         self.box_affichage_tests.delete(1.0, tk.END)
@@ -247,7 +263,7 @@ class App(tk.Tk):
                  
 if __name__ == "__main__":
     app = App()
-    app.geometry("800x600")  # Dimensions initiales
+    app.geometry("1024x768")  # Dimensions initiales
     app.minsize(500, 400)    # Dimensions minimales
     app.grid_rowconfigure(1, weight=1)  # Permet à la ligne principale de s'étirer
     app.grid_columnconfigure(0, weight=1)  # Permet à la colonne principale de s'étirer
