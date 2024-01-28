@@ -3,9 +3,6 @@
 ## Introduction
 Cette documentation technique fournit des informations détaillées sur l'API REST Flask développée en Python. L'API permet d'interagir avec une base de données SQLite, d'exécuter un script, et de fournir diverses informations liées aux trames réseau capturées.
 
-## Fonctionnement Général
-L'API présente plusieurs endpoints permettant de récupérer des informations à partir de la base de données SQLite, d'exécuter un script externe, et d'effectuer des opérations de requêtes.
-
 ## Prérequis
 - **Python 3.x**: L'API est développée en Python 3.
 - **Flask**: Le framework Flask est utilisé pour créer l'API REST.
